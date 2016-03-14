@@ -4,8 +4,6 @@ class AuthController extends Controller {
 
     const DEPENDENCIES = ['Router', 'Flash', 'Auth', 'Session'];
 
-    const INCLUDE_HEADER_FOOTER = false;
-
     public function index() {
         // If user go to auth/
         $this->router->go('auth/login');
