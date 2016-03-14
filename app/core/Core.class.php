@@ -11,6 +11,11 @@ class Core {
         $database->connect('localhost', 'hetic_panel', 'root', 'root');
         Factory::addDependency($database);
 
+        // If we can't connect
+        if (!$database->isConnected()) {
+            throw new Exception('Can\'t connect to databse.');
+        }
+
         // Add session
         $session = new Session;
         $session->start();

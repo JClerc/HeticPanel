@@ -9,7 +9,7 @@ Class Database extends Model {
     private $args = [];
 
 
-    // Init connection
+    // Set connection
     // --------------------------------
 
     public function connect($host, $name, $user, $pass) {
@@ -29,6 +29,10 @@ Class Database extends Model {
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    public function isConnected() {
+        return is_object($this->pdo);
     }
 
 
