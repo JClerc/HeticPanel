@@ -4,7 +4,7 @@ class AuthController extends Controller {
 
     const DEPENDENCIES = ['Router', 'Flash', 'Auth', 'Session'];
 
-    const PERMISSION_REQUIRED = User::NONE;
+    const INCLUDE_HEADER_FOOTER = false;
 
     public function index() {
         // If user go to auth/
@@ -44,6 +44,29 @@ class AuthController extends Controller {
             // Print unknown
             $this->set('username', 'inconnu');
         }
+    }
+
+    public function logout($request) {
+        // User is logged in
+        if ($this->auth->isLogged()) {
+
+            // Logout user
+            $this->auth->logout();
+
+            // Add a message
+            $this->flash->set(true, 'Vous vous êtes déconnecté.');
+
+        } else {
+
+            // Logout to delete session
+            $this->auth->logout();
+
+            // Add a message
+            $this->flash->set(false, 'Vous n\'étiez pas connecté.');
+
+        }
+
+        $this->router->go('auth/login');
     }
 
 }
