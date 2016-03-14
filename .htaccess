@@ -1,0 +1,15 @@
+
+RewriteEngine on
+RewriteBase /hetic/
+
+# Add trailing slash
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !.*/$
+RewriteRule ^(.*)$ /hetic/$1/ [L,R=302]
+
+# Redirect to index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /hetic/index.php [L,QSA]
