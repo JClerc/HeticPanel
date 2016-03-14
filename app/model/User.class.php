@@ -1,17 +1,13 @@
 <?php
 
-class User extends Model {
-
-    const DEPENDENCIES = ['Database', 'Crypt'];
+class User extends DataModel {
 
     const NONE = 0;
     const STUDENT = 1;
     const TEACHER = 2;
     const STAFF = 3;
 
-    private $id = 0;
-
-    private $properties = [
+    protected $properties = [
         'username'   => '',
         'password'   => '',
         'email'      => '',
@@ -20,34 +16,9 @@ class User extends Model {
         'permission' => self::NONE,
     ];
 
-    public function fromId($id) {
-        // Find user with id
-        $row = $this->database->get('users', [
-            'id' => $id,
-        ]);
-
-        if (!empty($row)) {
-            $this->set($row);
-            $this->id = $row['id'];
-            return true;
-        }
-
-        return false;
-    }
-
     public function fromUsername($username) {
         // Find user with username
-        $row = $this->database->get('users', [
-            'username' => $username,
-        ]);
-
-        if (!empty($row)) {
-            $this->set($row);
-            $this->id = $row['id'];
-            return true;
-        }
-
-        return false;
+        return $this->fromProperty('username', $username);
     }
 
     public function create($username, $password, $email, $firstname, $lastname, $permission) {
@@ -81,7 +52,7 @@ class User extends Model {
         if ($permission < User::NONE or $permission > User::STAFF)
             throw new Exception('La permission est incorrecte.');
 
-        $this->set([
+        return $this->make([
             'username'   => $username,
             'password'   => $password,
             'email'      => $email,
@@ -90,45 +61,6 @@ class User extends Model {
             'permission' => $permission
         ]);
 
-        // All is ok !
-        $this->database->insert('users', $this->properties);
-    }
-
-    public function exists() {
-        return $this->id > 0;
-    }
-
-    public function set($key, $value = null) {
-        if (is_array($key)) {
-
-            // Iterate over array
-            foreach ($key as $k => $v) {
-                $this->set($k, $v);
-            }
-
-        } else if (isset($this->properties[$key]) and isset($value)) {
-
-            // Set properties
-            $this->properties[$key] = $value;
-
-        }
-    }
-
-    public function getId() {
-        // Because id can't be changed
-        return $this->id;
-    }
-
-    public function get($key) {
-        return isset($this->properties[$key]) ? $this->properties[$key] : null;
-    }
-
-    public function save() {
-        if ($this->exists()) {
-            $this->database->update('users', $this->properties, [
-                'id' => $this->getId()
-            ]);
-        }
     }
 
 }

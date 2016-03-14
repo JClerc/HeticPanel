@@ -35,6 +35,10 @@ Class Database extends Model {
         return is_object($this->pdo);
     }
 
+    public function getPdo() {
+        return $this->pdo;
+    }
+
 
     // Main function
     // --------------------------------
@@ -118,7 +122,10 @@ Class Database extends Model {
         $this->appendInsert($values, $args);
 
         // Execute and return
-        return $this->run();
+        $this->run();
+
+        // Return new id
+        return $this->pdo->lastInsertId();
     }
 
     public function delete($table, $where = null, $args = null) {

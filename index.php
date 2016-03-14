@@ -8,6 +8,7 @@
  */
 header('Content-Type: text/html; charset=utf-8');
 @set_include_path(dirname(__FILE__));
+date_default_timezone_set('Europe/Paris');
 
 $root = substr(dirname($_SERVER['PHP_SELF']), 1) == '' ? '' : substr(dirname($_SERVER['PHP_SELF']), 1) . '/';
 define('ROOT', (strpos($root, 'index.php/') !== false ? substr($root, 0, strpos($root, 'index.php/')) : $root));
@@ -29,6 +30,7 @@ define('FILES', 'files/');
  * --------------------------------
  *
  */
+require_once (CORE . 'Model.class.php');
 foreach (glob(CORE . '*.php') as $filename)
     require_once $filename;
 foreach (glob(MODEL . '*.class.php') as $filename)

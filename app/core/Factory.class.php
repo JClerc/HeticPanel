@@ -2,7 +2,6 @@
 
 class Factory {
 
-
     private static $dependencies = [];
 
     public static function create($class) {

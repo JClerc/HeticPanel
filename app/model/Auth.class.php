@@ -1,6 +1,6 @@
 <?php
 
-class Auth {
+class Auth extends Model {
 
     const DEPENDENCIES = ['Session', 'Crypt'];
 

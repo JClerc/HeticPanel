@@ -14,7 +14,7 @@ class AuthController extends Controller {
         if ($this->auth->login($post['username'], $post['password'])) {
 
             // Add a message
-            $this->flash->set(true, 'BRAVO');
+            $this->flash->set(true, 'Connexion réussie.');
 
             // Go either to panel or to calendar
             $this->router->go();
@@ -23,7 +23,7 @@ class AuthController extends Controller {
         } else {
 
             // Add a message
-            $this->flash->set(false, 'ERREUR');
+            $this->flash->set(false, 'Mauvais nom d\'utilisateur ou mot de passe.');
 
             // Add data
             $this->set('username', 'inconnu');
