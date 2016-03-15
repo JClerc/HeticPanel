@@ -32,7 +32,7 @@ class Router {
 
         // If request is not alpha, go to error
         if (!ctype_alnum($request[0]) or !ctype_alnum($request[1])) {
-            $request = ['error', '404'];
+            $request = ['error'];
         }
 
         // Save request to object variable
@@ -41,6 +41,8 @@ class Router {
     }
 
     public function setRequest($request) {
+        if (empty($request[0])) $request[0] = 'index';
+        if (empty($request[1])) $request[1] = 'index';
         return $this->request = $request;
     }
 

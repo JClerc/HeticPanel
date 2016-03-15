@@ -5,9 +5,11 @@ Calendrier:
 
 <?php foreach ($data['calendar'] as $date): ?>
     <?php if (!empty($date['absences'])): ?>
-        <b><a href="#" onclick="return courseList([<?= implode(',', $date['courses']) ?>], [<?= implode(',', $date['absences']) ?>])">[<?= $date['date'] ?>]</a></b>
-    <?php else: ?>
-        <a href="#" onclick="return courseList([<?= implode(',', $date['courses']) ?>])">[<?= $date['date'] ?>]</a>
+        <b>
+    <?php endif; ?>
+    <a href="#" onclick="return courseList([<?= implode(',', $date['courses']) ?>], [<?= implode(',', $date['absences']) ?>], '<?= $date['date'] ?>')">[<?= $date['date'] ?>]</a>
+    <?php if (!empty($date['absences'])): ?>
+        </b>
     <?php endif; ?>
 <?php endforeach; ?>
 
@@ -17,27 +19,23 @@ Calendrier:
 Cours:
 <div id="courses">
     <?php foreach ($data['courses'] as $course): ?>
-        <a href="#" onclick="return selectCourse(<?= $course->getId() ?>)" data-id="<?= $course->getId() ?>">[<?= $course->get('name') ?>]</a>
+        <a href="#" data-src="/calendar/view/<?= $course->getId() ?>/" data-id="<?= $course->getId() ?>">[<?= $course->get('name') ?>]</a>
     <?php endforeach; ?>
 </div>
 
 <script>
-    function courseList(courses, absences) {
+    function courseList(courses, absences, date) {
         var container = $('#courses');
         var items = $('a', container);
         items.each(function () {
+            $(this).attr('href', $(this).data('src') + date + '/');
             $(this).toggle(courses.indexOf(~~$(this).data('id')) > -1);
-            if (absences && absences.indexOf(~~$(this).data('id')) > -1) {
+            if (absences.indexOf(~~$(this).data('id')) > -1) {
                 $(this).css('color', 'red');
             } else {
                 $(this).css('color', '');                
             }
         });
-        console.log(absences);
-        return false;
-    }
-    function selectCourse(id) {
-        alert(id);
         return false;
     }
 </script>

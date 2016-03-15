@@ -39,62 +39,67 @@ class Core {
         // So we get the controller
         $controller = $this->getController($controllerName);
 
-        // And get current user
-        $auth = Factory::getDependency('Auth');
+        // Controller exists
+        if (isset($controller)) {
 
-        // If he has permission
-        if ($auth->hasPermission($controller)) {
+            // And get current user
+            $auth = Factory::getDependency('Auth');
 
-            if (isset($controller)) {
+            // If he has permission
+            if ($auth->hasPermission($controller)) {
 
-                // And the view
-                $view = $this->getView($controller, $methodName, $args);
+                if (isset($controller)) {
 
-                if ($view !== false) {
+                    // And the view
+                    $view = $this->getView($controller, $methodName, $args);
 
-                    // If we have a string, it is the path of the view
-                    if (is_string($view)) {
-                        $controller->render($view);
-                        return;
+                    if ($view !== false) {
 
-                    // If it return nothing, we guess it from the name
-                    } else if (is_null($view)) {
-                        $controller->render('page/' . $controllerName . '/' . $methodName);
-                        return;
+                        // If we have a string, it is the path of the view
+                        if (is_string($view)) {
+                            $controller->render($view);
+                            return;
 
-                    // Avoid looping in error
-                    } else if ($controllerName !== 'error') {
-                        $router = new Router;
-                        $router->setRequest(['error', '500']);
-                        $this->follow($router);
+                        // If it return nothing, we guess it from the name
+                        } else if (is_null($view)) {
+                            $controller->render('page/' . $controllerName . '/' . $methodName);
+                            return;
+
+                        // Avoid looping in error
+                        } else if ($controllerName !== 'error') {
+                            $router = new Router;
+                            $router->setRequest(['error']);
+                            $this->follow($router);
+                        }
                     }
                 }
+
+            // Current user doesn't have permission
+            } else if ($auth->isLogged()) {
+
+                // Get flash
+                $flash = Factory::getDependency('Flash');
+                $flash->set(false, 'Désolé, vous n\'avez pas la permission.');
+
+                $router->go('auth/login');
+
+            // User is not logged in
+            } else {
+
+                // Get flash
+                $flash = Factory::getDependency('Flash');
+                $flash->set(false, 'Vous devez vous connecter.');
+
+                $router->go('auth/login');
+
             }
-
-        // Current user doesn't have permission
-        } else if ($auth->isLogged()) {
-
-            // Get flash
-            $flash = Factory::getDependency('Flash');
-            $flash->set(false, 'Désolé, vous n\'avez pas la permission.');
-
-            $router->go('auth/login');
-
-        // User is not logged in
-        } else {
-
-            // Get flash
-            $flash = Factory::getDependency('Flash');
-            $flash->set(false, 'Vous devez vous connecter.');
-
-            $router->go('auth/login');
 
         }
 
         // Avoid looping in error
         if ($controllerName !== 'error') {
             $router = new Router;
-            $router->setRequest(['error', '404']);
+            $router->setRequest(['error']);
             $this->follow($router);
 
         // Print error
@@ -102,6 +107,7 @@ class Core {
             echo 'Error with controller: <b>' . ucfirst($controllerName) . '</b> and method: <b>' . $methodName . '</b>.';
             exit;
         }
+
     }
 
     public function getController($controllerName) {
@@ -156,8 +162,14 @@ class Core {
     }
 
     public function getView($controller, $method, $args) {
+
+        $methods = get_class_methods($controller);
+        $base = get_class_methods('Controller');
+        $avaliable = array_diff($methods, $base);
+
         // Get methodPost if it exists
-        if (POST and method_exists($controller, $method . 'Post')) {
+        if (POST and in_array($method . 'Post', $avaliable)) {
+        // if (POST and method_exists($controller, $method . 'Post')) {
 
             // Method will be methodPost
             $method = $method . 'Post';
@@ -167,7 +179,8 @@ class Core {
         }
 
         // Get GET method if it exists
-        else if (GET and method_exists($controller, $method . 'Get')) {
+        else if (GET and in_array($method . 'Get', $avaliable)) {
+        // else if (GET and method_exists($controller, $method . 'Get')) {
 
             // Method will be methodGet
             $method = $method . 'Get';
@@ -175,8 +188,11 @@ class Core {
             // We insert $args and $_GET
             return $controller->$method($args, $_GET);
 
+        }
+
         // Get normal method
-        } else if (method_exists($controller, $method)) {
+        else if (in_array($method, $avaliable)) {
+        // else if (method_exists($controller, $method)) {
             // Just insert $args
             return $controller->$method($args);
         }

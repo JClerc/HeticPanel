@@ -16,13 +16,13 @@ abstract class Controller {
     // Auto include header and footer to view
     const INCLUDE_HEADER_FOOTER = true;
 
-    public function render($view) {
+    final public function render($view) {
         if (static::INCLUDE_HEADER_FOOTER) $this->view('module/includes/header');
         $this->view($view);
         if (static::INCLUDE_HEADER_FOOTER) $this->view('module/includes/footer');
     }
 
-    public function view($view) {
+    final public function view($view) {
         // If file exists
         if (is_file(VIEW . $view . '.php')) {
 
