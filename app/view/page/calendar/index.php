@@ -8,11 +8,14 @@
         <?php foreach ($data['calendar'] as $month): ?>
             <div class="month <?= $month['current'] ? 'active' : '' ?>">
                 <h3 class="month-name"><?= $month['name'] ?></h3>
+                <?php for ($i = 1; $i < count(Calendar::DAY_LOCALE_FR); $i++): ?>                    
+                    <div class="item item-label"><?= Calendar::DAY_LOCALE_FR[$i] ?></div>
+                <?php endfor; ?>
                 <?php for ($i=1; $i < $month['offset']; $i++): ?>
-                    <div class="item"></div>
+                    <div class="item item-offset"></div>
                 <?php endfor; ?>
                 <?php foreach ($month['days'] as $date): ?>
-                    <div class="item <?= !empty($date['absences']) ? 'missing' : '' ?> <?= $date['current'] ? 'active' : '' ?>">
+                    <div class="item item-day <?= !empty($date['absences']) ? 'missing' : '' ?> <?= $date['current'] ? 'active' : '' ?>">
                         <a href="#" 
                             onclick="return App.calendar.courseList(<?= json_encode($date['courses']) ?>, <?= json_encode($date['absences']) ?>, '<?= $date['date'] ?>')"
                         ><?= $date['day'] ?></a>
