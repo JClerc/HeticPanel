@@ -15,6 +15,11 @@ App.calendar.courseList = function (courses, absences, date) {
     var container = $('.course-list');
     var items = $('.view-course', container);
 
+    // Add default text
+    $('.item-choose-date').hide();
+
+    var atLeastOne = false;
+
     // Pour chaque lien
     items.each(function () {
 
@@ -34,6 +39,7 @@ App.calendar.courseList = function (courses, absences, date) {
         } else {
             // Sinon on l'affiche
             $link.show();
+            atLeastOne = true;
 
             // On regarde si il est dans la variable "absences"
             // Pour savoir si il était absent à ce cours
@@ -62,6 +68,9 @@ App.calendar.courseList = function (courses, absences, date) {
             });
 
         }
+
+        // Toggle if there is courses to display or not
+        $('.item-no-courses').toggle(atLeastOne);
 
     });
     return false;
