@@ -27,10 +27,16 @@
     <div class="course-list dashbox nopadding">
         <div class="item parent">Cours</div>
         <?php foreach ($data['courses'] as $course): ?>
-            <a class="item view-course" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>">
+            <a class="item view-course" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>" style="display: none;">
                 <?= $course->get('name') ?>
             </a>
         <?php endforeach; ?>
+        <div class="item view-course item-choose-date">
+            Séléctionnez une date.
+        </div>
+        <div class="item view-course item-no-courses" style="display: none;">
+            Aucun cours disponible.
+        </div>
     </div>
 
     <div class="clear"></div>
