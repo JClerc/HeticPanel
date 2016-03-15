@@ -25,26 +25,13 @@ class AuthController extends Controller {
             // Add a message
             $this->flash->set(false, 'Mauvais nom d\'utilisateur ou mot de passe.');
 
-            // Add data
-            $this->set('username', 'inconnu');
         }
     }
 
-    public function loginGet($request) {
-        // No form was sended
-        if ($this->auth->isLogged()) {
-
-            // Print user from session
-            $this->set('username', $this->auth->current()->get('username'));
-
-        } else {
-
-            // Print unknown
-            $this->set('username', 'inconnu');
-        }
-    }
+    public function loginGet($request) {}
 
     public function logout($request) {
+
         // User is logged in
         if ($this->auth->isLogged()) {
 
@@ -65,6 +52,7 @@ class AuthController extends Controller {
         }
 
         $this->router->go('auth/login');
+
     }
 
 }
