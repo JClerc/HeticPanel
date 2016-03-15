@@ -1,10 +1,6 @@
-<?php
-
-if (isset($data['success']) and isset($data['message'])) {
-
-    if ($data['success']) {
-        echo '<div style="border: 1px solid green; padding: 15px; margin: 15px 0;">' . $data['message'] . '</div>';
-    } else {
-        echo '<div style="border: 1px solid red; padding: 15px; margin: 15px 0;">' . $data['message'] . '</div>';
-    }
-}
+<?php if (isset($data['success']) && isset($data['message'])): ?>
+    <div 
+    	class="alert alert-<?php if ($data['success']): ?>success<?php else: ?>error<?php endif; ?>">
+    	<?= $data['message']; ?>
+   	</div>
+<?php endif; ?>

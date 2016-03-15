@@ -7,13 +7,13 @@
  */
 
 html, body {
-    /*margin: 0;*/
+    margin: 0;
     padding: 0;
     background: #FAFAFA;
     color: #222;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
-    background-image: url('../img/bureau.png');
+    -webkit-font-smoothing: antialiased;
 }
 
 input {
@@ -49,4 +49,115 @@ button {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
+}
+
+
+/** LOGIN **/
+.login-background {
+    height: 100vh;
+    width: 100%;
+    background: url('../img/bureau.png') bottom;
+    background-size: cover;
+}
+
+.login-overlay {
+    position: absolute;
+    z-index: 2;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.login-container {
+    margin-top: calc(50vh - 250px);
+    width: 330px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-container .logo {
+    text-align: center;
+}
+
+.login-container .logo img {
+    width: 70px;
+}
+
+.login-container .logo-text {
+    color: #E48562;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: normal;
+    margin-top: 30px;
+}
+
+.login-box {
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.login-form label {
+    color: #000;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.login-form input {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 0;
+    background: #F0F4F5;
+}
+
+.login-form input:last-child {
+    margin-bottom: 0;
+}
+
+.login-form button {
+    background: #262C34;
+    color: white;
+    width: 80%;
+    margin-right: auto; 
+    margin-left: auto;
+    padding: 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    position: relative;
+    border: 0;
+}
+
+.login-form button::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    left: 10px;
+    position: absolute;
+    background: rgba(153, 153, 153, 0.3);
+    z-index: -1;
+    border-radius: 6px;
+}
+
+.login-form .alert {
+    height: 35px;
+    font-weight: bold;
+}
+
+.login-form .alert.alert-success {
+    color: #0FC038;
+}
+
+.login-form .alert.alert-error {
+    color: #C0332C;
 }
