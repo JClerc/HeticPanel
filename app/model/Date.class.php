@@ -2,53 +2,10 @@
 
 class Date extends Model {
     
-    const DATE_START = '01-09';
-    const DATE_END   = '30-06';
-
     private $time = 0;
 
     public function __construct() {
         $this->fromTime(time());
-    }
-
-    public static function startOfYear($year = null) {
-        $date = new Date;
-
-        if (!isset($year)) {
-            $year = date('Y');
-            while (strtotime(self::DATE_START . '-' . $year) > time()) {
-                $year--;
-            }
-        }
-
-        $date->fromString(self::DATE_START . '-' . $year);
-        return $date;
-    }
-
-    public static function endOfYear($year = null) {
-        if (!isset($year)) {
-            $start = self::startOfYear();
-
-            $date = new Date;
-            $date->fromString(self::DATE_END . '-' . date('Y'));
-
-            $i = 1;
-            while ($date->isBefore($start)) $date->fromString(self::DATE_END . '-' . (date('Y') + $i++));
-
-            return $date;
-
-        } else {        
-
-            $date = new Date;
-            $date->fromString(self::DATE_START . '-' . $year);
-            return $date;
-        }
-    }
-
-    public static function getDaysInYear() {
-        $start = self::startOfYear();
-        $end = self::endOfYear();
-        return $start->getDaysTo($end);
     }
 
     public function fromTime($time) {

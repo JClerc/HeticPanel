@@ -21,7 +21,7 @@ Class CalendarController extends Controller {
 
         // Pass calendar
         $absences = Factory::create(new Absence)->ofStudent($user);
-        $days = Date::getDaysInYear();
+        $days = Calendar::getDaysInYear();
         $calendar = [];
 
         foreach ($days as $day) {
