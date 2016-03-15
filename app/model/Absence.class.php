@@ -10,12 +10,22 @@ class Absence extends DataModel {
 
     protected $properties = [
         'student'  => 0,
-        'date'     => '',
+        'date'     => 0,
         'course'   => 0,
         'reason'   => '',
         'state'    => 0,
         'updated'  => 0,
     ];
+
+    public function isAt(Date $date) {
+        $current = Factory::create(new Date);
+        $current->fromTime($this->get('date'));
+        return $current->equals($date);
+    }
+
+    public function isFor(Course $course) {
+        return intval($this->get('course')) === $course->getId();
+    }
 
     public function ofStudent(User $user) {
         return $this->createCollection('Absence', $this->database->all($this->getTable(), [
@@ -32,7 +42,7 @@ class Absence extends DataModel {
     public function create(User $student, Date $date, Course $course) {
         return $this->make([
             'student'  => $student,
-            'date'     => $date->toString(),
+            'date'     => $date->getTime(),
             'course'   => $course,
             'reason'   => '',
             'state'    => 0,

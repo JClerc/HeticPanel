@@ -65,7 +65,7 @@ abstract class DataModel extends Model {
 
     public function getId() {
         // Because id can't be changed
-        return $this->id;
+        return intval($this->id);
     }
 
     public function get($key) {
