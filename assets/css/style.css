@@ -11,13 +11,13 @@ html, body {
     padding: 0;
     background: #E5E6E9;
     color: #222;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
 }
 
 .container {
-    width: 1024px;
+    width: 960px;
     margin: auto;
 }
 
@@ -25,11 +25,38 @@ html, body {
     clear: both;
 }
 
-/** LOGIN **/
+.logo-box {
+    width: 70px;
+    height: auto;
+    display: inline-block;
+}
+
+.logo-box .logo {
+    background: url('../img/ui/logo.png') center no-repeat;
+    background-size: 95%;
+    padding-bottom: 100%;
+}
+
+.logo-text {
+    color: #E48562;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+/* 
+ * ------------------------------------
+ *               LOGIN
+ * ------------------------------------
+ * 
+ */
+
 .login-background {
     height: 100vh;
     width: 100%;
-    background: url('../img/bureau.png') bottom;
+    background: url('../img/pages/auth/desk.png') bottom;
     background-size: cover;
 }
 
@@ -42,36 +69,30 @@ html, body {
 }
 
 .login-container {
-    margin-top: calc(50vh - 250px);
+    margin-top: calc(50vh - 210px);
     width: 330px;
-    height: 500px;
+    height: 420px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.login-container .logo {
     text-align: center;
 }
 
-.login-container .logo img {
+.login-container .logo-box {
     width: 70px;
 }
 
 .login-container .logo-text {
-    color: #E48562;
     text-align: center;
-    text-transform: uppercase;
-    font-size: 40px;
-    font-weight: normal;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .login-box {
     background: white;
-    border-radius: 10px;
+    border-radius: 4px;
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    text-align-last: left;
 }
 
 .login-form label {
@@ -88,9 +109,17 @@ html, body {
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 0;
     background: #F0F4F5;
+    border: 1px solid #F0F4F5;
+    outline: none;
+    transition: all .2s;
+}
+
+.login-form input:focus {
+    background: #FCFEFF;
+    border: 1px solid #D5D6D6;
 }
 
 .login-form input:last-child {
@@ -106,14 +135,21 @@ html, body {
     margin-right: auto; 
     margin-left: auto;
     padding: 20px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-weight: bold;
     font-size: 15px;
     position: relative;
     border: 0;
+    cursor: pointer;
+    outline: none;
+    transition: background .2s;
 }
 
-.login-form button::after {
+.login-form button:hover {
+    background: #111;
+}
+
+.login-form button::before {
     content: "";
     width: 100%;
     height: 100%;
@@ -122,7 +158,7 @@ html, body {
     position: absolute;
     background: rgba(153, 153, 153, 0.3);
     z-index: -1;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 
 .alert {
@@ -139,24 +175,34 @@ html, body {
 }
 
 
-/** NAVBAR **/
+/* 
+ * ------------------------------------
+ *               NAVBAR
+ * ------------------------------------
+ * 
+ */
+
 .navbar {
     width: 100%;
     height: 70px;
     background: #262C34;
 }
 
-.navbar .logo {
+.navbar .logo-box {
     float: left;
-    margin-left: 20px;
-    height: 50px;
+    width: 50px;
     margin-top: 10px;
+}
+
+.navbar .logo-text {
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
 }
 
 .navbar .nav-right {
     float: right;
-    height: 15px;
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .navbar .logout {
@@ -164,20 +210,27 @@ html, body {
     color: white;
     background: #E68664;
     padding: 8px 25px;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 0;
     font-weight: bold;
     float: right;
+    transition: all .3s;
+}
+
+.navbar .logout:hover {
+    background: #C36B4C;
 }
 
 .navbar .avatar {
-    width: 55px;
-    height: 55px;
-    margin-top: -10px;
+    width: 50px;
+    height: 50px;
+    margin-top: -8px;
     border-radius: 50%;
     margin-right: 20px;
     background: white;
     float: right;
+    background: url('../img/ui/default-avatar.jpg');
+    background-size: 100%;
 }
 
 .navbar .infos {
@@ -192,16 +245,23 @@ html, body {
     color: #565E67;
     display: block;
     font-size: 13px;
-    margin-top: 3px;
     text-align: right;
 }
+
+/* 
+ * ------------------------------------
+ *               CALENDAR
+ * ------------------------------------
+ * 
+ */
 
 .title {
     font-family: "Open Sans";
     font-weight: 500;
     font-size: 30px;
     text-align: center;
-    margin-bottom: 100px;
+    margin-top: 40px;
+    margin-bottom: 60px;
 }
 
 .dashbox {
@@ -219,7 +279,6 @@ html, body {
     font-family: "Open Sans";
     float: left;
     width: 650px;
-    margin-right: 50px;
 }
 
 .calendar .month {
@@ -262,8 +321,8 @@ html, body {
 }
 
 .course-list {
-    float: left;
-    width: 300px;
+    float: right;
+    width: 285px;
 }
 
 .course-list .item {

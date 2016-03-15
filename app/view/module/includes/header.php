@@ -7,5 +7,6 @@
     <title>Hetic Panel</title>
     <!-- <link rel="stylesheet" type="text/css" href="/assets/css/reset.min.css"> -->
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>

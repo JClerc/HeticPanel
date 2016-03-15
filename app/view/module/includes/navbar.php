@@ -1,13 +1,15 @@
 <header class="navbar">
 	<div class="container">
-		<img src="/assets/img/logo.png" class="logo">
+		<a href="/" class="logo-box"><div class="logo"></div></a>
+
+		<a href="/" class="logo-text">Hetic</a>
 
 		<div class="nav-right">
-			<a href="/auth/logout" class="logout">Déconnexion</a>
+			<a href="/auth/logout/" class="logout">Déconnexion</a>
 			<div class="avatar"></div>
 			<div class="infos">
 				<?= $data['user']->get('firstname'); ?> <?= strtoupper($data['user']->get('lastname')); ?>
-				<a href="/auth/settings">éditer mon profil</a>
+				<a href="/auth/settings/">éditer mon profil</a>
 		</div>
 	</div>
 </header>
