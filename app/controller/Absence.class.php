@@ -1,13 +1,29 @@
 <?php
 
 class AbsenceController extends Controller {
+
+    const DEPENDENCIES = ['Router'];
     
     public function review($request) {
 
-        $absence = Factory::create(new Absence);
-        $absence->fromId($request[0]);
+        if (count($request) === 1) {
 
-        $this->set('absence', $absence);
+            $absence = Factory::create(new Absence);
+            $absence->fromId($request[0]);
+
+            if ($absence->exists()) {
+
+                $this->set('absence', $absence);
+                $this->set('date',   $absence->getDate());
+                $this->set('course', $absence->getCourse());
+
+                return;
+
+            }
+
+        }
+
+        $this->router->go('error');
 
     }
 
