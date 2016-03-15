@@ -25,21 +25,28 @@ Class CalendarController extends Controller {
         $months = Calendar::getMonthInYear();
         $calendar = [];
 
+        $today = new Date;
+
         foreach ($months as $key => $month) {
             
             $calendar[$key] = [
                 'days' => [],
                 'name' => Calendar::getMonthName($key),
                 'offset' => $month[0]->getDayOfWeek(),
+                'current' => false,
             ];
 
             foreach ($month as $day) {
                 
                 $add = [
                     'date' => $day->toString(),
+                    'day' => $day->getDay(),
                     'absences' => [],
                     'courses' => [],
+                    'current' => $day->equals($today)
                 ];
+
+                if ($add['current']) $calendar[$key]['current'] = true;
 
                 foreach ($absences as $absence) {
                     if ($absence->isAt($day)) {
