@@ -49,7 +49,7 @@ Class CalendarController extends Controller {
                 if ($add['current']) $calendar[$key]['current'] = true;
 
                 foreach ($absences as $absence) {
-                    if ($absence->isAt($day)) {
+                    if ($absence->isAt($day) and !$absence->isResolved()) {
                         $add['absences'][] = [$absence->getId(), intval($absence->get('course'))];
                     }
                 }

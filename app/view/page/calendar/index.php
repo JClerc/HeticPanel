@@ -15,7 +15,7 @@
                     <div class="item item-offset"></div>
                 <?php endfor; ?>
                 <?php foreach ($month['days'] as $date): ?>
-                    <a class="item item-day <?= !empty($date['absences']) ? 'missing' : '' ?> <?= $date['current'] ? 'active' : '' ?>"  
+                    <a class="item item-day<?= !empty($date['courses']) ? ' has-course' : ' no-course' ?><?= !empty($date['absences']) ? ' missing' : '' ?><?= $date['current'] ? ' active' : '' ?>"  
                        onclick="return App.calendar.courseList(<?= json_encode($date['courses']) ?>, <?= json_encode($date['absences']) ?>, '<?= $date['date'] ?>')"
                        href="#">
                        <?= $date['day'] ?>

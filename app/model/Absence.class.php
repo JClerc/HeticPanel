@@ -62,6 +62,11 @@ class Absence extends DataModel {
         return $course;
     }
 
+    public function isResolved() {
+        $state = intval($this->get('state'));
+        return ($state === self::STATE_LATE or $state === self::STATE_ACCEPTED);
+    }
+
     public function changeToLate() {
         $this->set('state', self::STATE_LATE);
         $this->set('updated', time());
