@@ -8,7 +8,7 @@
         <?php foreach ($data['calendar'] as $month): ?>
             <div class="month <?= $month['current'] ? 'active' : '' ?>">
                 <h3 class="month-name"><?= $month['name'] ?></h3>
-                <?php for ($i=0; $i < $month['offset']; $i++): ?>
+                <?php for ($i=1; $i < $month['offset']; $i++): ?>
                     <div class="item"></div>
                 <?php endfor; ?>
                 <?php foreach ($month['days'] as $date): ?>
