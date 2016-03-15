@@ -54,7 +54,7 @@ Cours:
             Il faut rediriger vers la page:
             /calendar/view/<id du cours>/<date du jour>/
         -->
-        <a class="view-course" href="#" data-src="/absences/view/" data-id="<?= $course->getId() ?>">
+        <a class="view-course" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>">
 
             <!-- On affiche le nom du cours -->
             [<?= $course->get('name') ?>]
