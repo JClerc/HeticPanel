@@ -70,7 +70,7 @@ App.calendar.courseList = function (courses, absences, date) {
         }
 
         // Toggle if there is courses to display or not
-        $('.item-no-courses').toggle(atLeastOne);
+        $('.item-no-courses').toggle(!atLeastOne);
 
     });
     return false;
