@@ -44,7 +44,7 @@ App.calendar.courseList = function (courses, absences, date) {
                 if (absenceAt === courseId) {
 
                     // Il etait absent
-                    $link.css('color', 'red');
+                    $link.addClass('missing');
 
                     // Et on fait le lien
                     $link.attr('href', $link.data('src') + absenceId + '/');
@@ -52,7 +52,7 @@ App.calendar.courseList = function (courses, absences, date) {
                 } else {
 
                     // Tout est ok
-                    $link.css('color', '');
+                    $link.removeClass('missing');
 
                     // On "supprime" le lien car y'a pas d'absence a voir
                     $link.attr('href', '#');

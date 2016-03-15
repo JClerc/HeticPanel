@@ -211,11 +211,23 @@ html, body {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
+.dashbox.nopadding {
+    padding: 0;
+}
+
 .calendar {
     font-family: "Open Sans";
     float: left;
     width: 650px;
     margin-right: 50px;
+}
+
+.calendar .month {
+    display: none;
+}
+
+.calendar .month.active {
+    display: block;
 }
 
 .calendar .month-name {
@@ -229,23 +241,61 @@ html, body {
     display: block;
     float: left;
     width: 85px;
-    height: 30px;
+    height: 50px;
+    font-size: 15px;
     text-align: center;
 }
 
 .calendar .item a {
     color: #D1CDCD;
+    text-decoration: none;
 }
 
-.calendar .item.active {
-    font-weight: bold;
+.calendar .item.active a {
+    color: #000;
 }
 
 .calendar .item.missing a {
     color: #E68664;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .course-list {
     float: left;
     width: 300px;
+}
+
+.course-list .item {
+    display: block;
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 22px 15px;
+    background: #FAF8F7;
+    color: #BFB6B3;
+    text-decoration: none;
+}
+
+.course-list .item.parent {
+    background: white;
+    position: relative;
+    font-weight: bold;
+}
+
+.course-list .item.parent::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #fff transparent transparent transparent;
+}
+
+.course-list .item.missing {
+    background: #E68664;
+    color: white;
 }
