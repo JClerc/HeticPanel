@@ -28,7 +28,15 @@ class AuthController extends Controller {
         }
     }
 
-    public function loginGet($request) {}
+    public function loginGet($request) {
+        // User is logged in
+        if ($this->auth->isLogged()) {
+
+            // Go either to calendar or panel
+            $this->router->go();
+
+        }
+    }
 
     public function logout($request) {
 
