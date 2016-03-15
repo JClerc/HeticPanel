@@ -17,17 +17,27 @@ class Absence extends DataModel {
         'updated'  => 0,
     ];
 
-    public function create(User $student, Day $date, Course $course) {
-    
+    public function ofStudent(User $user) {
+        return $this->createCollection('Absence', $this->database->all($this->getTable(), [
+            'student' => $user->getId()
+        ]));
+    }
+
+    public function ofCourse(Course $course) {
+        return $this->createCollection('Absence', $this->database->all($this->getTable(), [
+            'course' => $course->getId()
+        ]));
+    }
+
+    public function create(User $student, Date $date, Course $course) {
         return $this->make([
-            'student'  => $student->getId(),
+            'student'  => $student,
             'date'     => $date->toString(),
-            'course'   => $course->getId(),
+            'course'   => $course,
             'reason'   => '',
             'state'    => 0,
             'updated'  => time(),
         ]);
-
     }
 
     public function changeToLate() {

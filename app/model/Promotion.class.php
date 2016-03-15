@@ -8,33 +8,14 @@ class Promotion extends Model {
     ];
     
     public function create($year, array $groups) {
-
-        $ids = [];
-        foreach ($groups as $group) {
-            $ids[] = $group->getId();
-        }
-
         return $this->make([
-            'year' => $teacher->getId(),
-            'groups' => implode(',', $ids),
+            'year' => $year,
+            'groups' => $groups,
         ]);
-
     }
 
-    private function setProperty($key, $value) {
-        if ($key === 'groups') {
-            $groups = explode(',', $value);
-            $value = [];
-            foreach ($groups as $id) {
-                $group = new Group;
-                $value[] = $group->fromId($id);
-            }
-        }
-        parent::setProperty($key, $value);
-    }
-
-    public function hasStudent(User $student) {
-        foreach ($this->groups as $group) {
+    public function hasStudent($student) {
+        foreach ($this->getGroup() as $group) {
             if ($group->hasStudent($student)) {
                 return true;
             }
@@ -42,23 +23,24 @@ class Promotion extends Model {
         return false;
     }
 
+    public function getGroup($id) {
+        return $this->getCollection('Group', $id);
+    }
+
     public function getGroups() {
-        return $this->groups;
+        return $this->getCollection('Group');
     }
 
-    public function addGroup(Group $group) {
-        $this->removeGroup($group);
-        $this->groups[] = $group;
+    public function hasGroup($id = null) {
+        return $this->hasCollection('Group', $id);
     }
 
-    public function removeGroup(Group $group) {
-        foreach ($this->groups as $key => $value) {
-            if ($group->equals($value)) {
-                unset($this->groups[$key]);
-                return true;
-            }
-        }
-        return false;
+    public function addGroup($id) {
+        return $this->addCollection('Group', $id);
+    }
+
+    public function removeGroup($id) {
+        return $this->removeCollection('Group', $id);
     }
 
 }

@@ -9,7 +9,11 @@ Class CalendarController extends Controller {
     public function index() {
         // Fill month data
         $this->set('month', [1, 2, 3]);
-        $this->set('user', $this->auth->current());
+
+        $user = $this->auth->current();
+
+        $this->set('user', $user);
+
     }
 
 }

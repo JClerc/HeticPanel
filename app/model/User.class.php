@@ -14,6 +14,7 @@ class User extends DataModel {
         'firstname'  => '',
         'lastname'   => '',
         'permission' => self::NONE,
+        'group'      => 0,
     ];
 
     public function fromUsername($username) {
@@ -21,7 +22,7 @@ class User extends DataModel {
         return $this->fromProperty('username', $username);
     }
 
-    public function create($username, $password, $email, $firstname, $lastname, $permission) {
+    public function create($username, $password, $email, $firstname, $lastname, $permission, $group = null) {
         // Check if username don't exists
         $row = $this->database->get('users', [ 'username' => $username ]);
         if (!empty($row)) {
@@ -52,15 +53,26 @@ class User extends DataModel {
         if ($permission < User::NONE or $permission > User::STAFF)
             throw new Exception('La permission est incorrecte.');
 
+        $insert = 0;
+        if ($group instanceof DataModel) $insert = $group->getId();
+        if (is_string($group) or is_int($group)) $insert = intval($group);
+
         return $this->make([
             'username'   => $username,
             'password'   => $password,
             'email'      => $email,
             'firstname'  => $firstname,
             'lastname'   => $lastname,
-            'permission' => $permission
+            'permission' => $permission,
+            'group'      => $insert
         ]);
 
+    }
+
+    public function getGroup() {
+        $group = Factory::create(new Group);
+        $group->fromId($this->get('group'));
+        return $group;
     }
 
 }

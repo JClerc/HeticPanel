@@ -7,23 +7,25 @@ class Course extends DataModel {
         'code'      => '',
         'teacher'   => 0,
         'group'     => 0,
-        'start'     => '',
-        'end'       => '',
+        'startdate' => '',
+        'enddate'   => '',
+        'starttime' => 0,
+        'endtime'   => 0,
         'dayofweek' => 0,
     ];
 
-    public function create($name, $code, User $teacher, Group $group, Day $start, Day $end, $dayofweek) {
-    
+    public function create($name, $code, User $teacher, Group $group, Date $startDate, Date $endDate, $startTime, $endTime, $dayofweek) {
         return $this->make([
             'name'      => $name,
             'code'      => $code,
-            'teacher'   => $teacher->getId(),
-            'group'     => $group->getId(),
-            'start'     => $start->toString(),
-            'end'       => $end->toString(),
+            'teacher'   => $teacher,
+            'group'     => $group,
+            'startdate' => $start->toString(),
+            'enddate'   => $end->toString(),
+            'starttime' => $startTime,
+            'endtime'   => $endTime,
             'dayofweek' => $dayofweek,
         ]);
-
     }
 
 }

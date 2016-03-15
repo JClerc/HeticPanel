@@ -1,6 +1,6 @@
 <?php
 
-class Group extends Model {
+class Group extends DataModel {
 
     protected $properties = [
         'index'     => 0,
@@ -10,63 +10,52 @@ class Group extends Model {
     ];
     
     public function create($index, array $students, array $courses) {
-
-        $ids = [];
-        foreach ($students as $student) {
-            $ids[] = $student->getId();
-        }
-
         return $this->make([
             'index' => $index,
-            'promotion' => $promotion->getId(),
-            'students' => implode(',', $ids),
-            'courses' => implode(',', $ids),
+            'promotion' => $promotion,
+            'students' => $students,
+            'courses' => $courses,
         ]);
-
     }
 
-    private function setProperty($key, $value) {
-        if ($key === 'students') {
-            $students = explode(',', $value);
-            $value = [];
-            foreach ($students as $id) {
-                $student = new User;
-                $value[] = $student->fromId($id);
-            }
-        }
-        parent::setProperty($key, $value);
-    }
-
-    public function hasStudent(User $student) {
-        foreach ($this->students as $value) {
-            if ($student->equals($value)) {
-                return true;
-            }
-        }
-        return false;
+    public function getStudent($id = null) {
+        return $this->getCollection('Student', $id);
     }
 
     public function getStudents() {
-        return $this->students;
+        return $this->getCollection('Student');
     }
 
-    public function addStudent(Student $student) {
-        $this->removeStudent($student);
-        $this->students[] = $student;
+    public function hasStudent($id = null) {
+        return $this->hasCollection('Student', $id);
     }
 
-    public function removeStudent(User $student) {
-        foreach ($this->students as $value) {
-            if ($student->equals($value)) {
-                unset($this->students[$key]);
-                return true;
-            }
-        }
-        return false;
+    public function addStudent($id) {
+        return $this->addCollection('Student', $id);
     }
 
-    public function getIndex() {
-        return $this->index;
+    public function removeStudent($id) {
+        return $this->removeCollection('Student', $id);
+    }
+
+    public function getCourse($id = null) {
+        return $this->getCollection('Course', $id);
+    }
+
+    public function getCourses() {
+        return $this->getCollection('Course');
+    }
+
+    public function hasCourse($id = null) {
+        return $this->hasCollection('Course', $id);
+    }
+
+    public function addCourse($id) {
+        return $this->addCollection('Course', $id);
+    }
+
+    public function removeCourse($id) {
+        return $this->removeCollection('Course', $id);
     }
 
 }
