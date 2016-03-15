@@ -294,6 +294,7 @@ html, body {
     font-size: 25px;
     margin-top: 0;
     text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 .calendar .item {
@@ -301,22 +302,32 @@ html, body {
     float: left;
     width: 85px;
     height: 50px;
+    line-height: 50px;
     font-size: 15px;
     text-align: center;
-}
-
-.calendar .item a {
-    color: #D1CDCD;
+    color: #928D8D;
     text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid transparent;
 }
 
-.calendar .item.active a {
+.calendar .item-day:hover {
+    background: #FCFCFC;
+    border: 1px solid #DDD;
+}
+
+.calendar .item-label {
+    color: #555;
+}
+
+.calendar .item.active {
     color: #000;
+    box-sizing: border-box;
+    text-decoration: underline;
 }
 
-.calendar .item.missing a {
+.calendar .item.missing {
     color: #E68664;
-    text-decoration: underline;
     font-weight: bold;
 }
 
@@ -334,6 +345,7 @@ html, body {
     background: #FAF8F7;
     color: #BFB6B3;
     text-decoration: none;
+    cursor: default;
 }
 
 .course-list .item.parent {
@@ -357,4 +369,5 @@ html, body {
 .course-list .item.missing {
     background: #E68664;
     color: white;
+    cursor: pointer;
 }
