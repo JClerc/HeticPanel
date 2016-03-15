@@ -17,6 +17,18 @@ class Date extends Model {
         return $this->time;
     }
 
+    public function getBefore() {
+        $date = new Date;
+        $date->fromTime($this->getTime() - 86400);
+        return $date;
+    }
+
+    public function getAfter() {
+        $date = new Date;
+        $date->fromTime($this->getTime() + 86400);
+        return $date;
+    }
+
     public function getDaysTo(Date $to) {
         $fromdate = new DateTime;
         $fromdate->setTimestamp($this->getTime());
