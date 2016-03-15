@@ -1,41 +1,66 @@
-
+<!-- Inclus la navbar -->
 <?php $this->view('module/includes/navbar') ?>
 
+<!-- Vue du calendrier -->
 Calendrier:
 
-<?php foreach ($data['calendar'] as $date): ?>
-    <?php if (!empty($date['absences'])): ?>
-        <b>
-    <?php endif; ?>
-    <a href="#" onclick="return courseList([<?= implode(',', $date['courses']) ?>], [<?= implode(',', $date['absences']) ?>], '<?= $date['date'] ?>')">[<?= $date['date'] ?>]</a>
-    <?php if (!empty($date['absences'])): ?>
-        </b>
-    <?php endif; ?>
+<!-- Pour chaque mois -->
+<?php foreach ($data['calendar'] as $month): ?>
+
+    <!-- On affiche le nom du mois -->
+    <h3><?= $month['name'] ?></h3>
+
+    <!-- Et pour chaque jour -->
+    <?php foreach ($month['days'] as $date): ?>
+
+        <!-- Si il a une absence -->
+        <?php if (!empty($date['absences'])): ?>
+            <b>ABSENCE:</b>
+        <?php endif; ?>
+
+        <!-- 
+            onclick = courseList( [liste des cours], [liste des absences], [date du jour] )
+
+            Par exemple:
+            courseList([4, 6], [ [id, cours] ], '24-09-2015')
+            courseList([4, 6], [ [2, 4] ], '24-09-2015')
+
+            = On affiche le cours 4 et 6, et il y a une absence #2 pour le cours 4
+
+        -->
+        <a href="#" onclick="return App.calendar.courseList(<?= json_encode($date['courses']) ?>, <?= json_encode($date['absences']) ?>, '<?= $date['date'] ?>')">
+    
+            <!-- On affiche la date -->
+            [<?= $date['date'] ?>]
+
+        </a>
+
+    <?php endforeach; ?>
+
 <?php endforeach; ?>
 
+
 <br>
 <br>
 
+<!-- Liste des cours en fonction de la date -->
 Cours:
-<div id="courses">
-    <?php foreach ($data['courses'] as $course): ?>
-        <a href="#" data-src="/calendar/view/<?= $course->getId() ?>/" data-id="<?= $course->getId() ?>">[<?= $course->get('name') ?>]</a>
-    <?php endforeach; ?>
-</div>
+<div class="course-list">
 
-<script>
-    function courseList(courses, absences, date) {
-        var container = $('#courses');
-        var items = $('a', container);
-        items.each(function () {
-            $(this).attr('href', $(this).data('src') + date + '/');
-            $(this).toggle(courses.indexOf(~~$(this).data('id')) > -1);
-            if (absences.indexOf(~~$(this).data('id')) > -1) {
-                $(this).css('color', 'red');
-            } else {
-                $(this).css('color', '');                
-            }
-        });
-        return false;
-    }
-</script>
+    <!-- On affiche tout les cours par défaut -->
+    <?php foreach ($data['courses'] as $course): ?>
+
+        <!-- 
+            Il faut rediriger vers la page:
+            /calendar/view/<id du cours>/<date du jour>/
+        -->
+        <a class="view-course" href="#" data-src="/absences/view/" data-id="<?= $course->getId() ?>">
+
+            <!-- On affiche le nom du cours -->
+            [<?= $course->get('name') ?>]
+
+        </a>
+
+    <?php endforeach; ?>
+
+</div>

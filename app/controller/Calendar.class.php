@@ -11,7 +11,6 @@ Class CalendarController extends Controller {
         $user = $this->auth->current();
         
         // Pass data to view
-        $this->set('month', [1, 2, 3]);
         $this->set('user', $user);
 
         // Pass courses
@@ -19,30 +18,46 @@ Class CalendarController extends Controller {
         $courses = $group->getCourses();
         $this->set('courses', $courses);
 
-        // Pass calendar
+        // Get absences list
         $absences = Factory::create(new Absence)->ofStudent($user);
-        $days = Calendar::getDaysInYear();
+
+        // Get days in year
+        $months = Calendar::getMonthInYear();
         $calendar = [];
 
-        foreach ($days as $day) {
-            $add = [
-                'date' => $day->toString(),
-                'absences' => [],
-                'courses' => []
+        foreach ($months as $key => $month) {
+            
+            $calendar[$key] = [
+                'days' => [],
+                'name' => Calendar::getMonthName($key)
             ];
-            foreach ($absences as $absence) {
-                if ($absence->isAt($day)) {
-                    $add['absences'][] = $absence->get('course');
-                }
-            }
-            foreach ($courses as $course) {
-                if ($day->getTime() >= $course->get('startdate') and $day->getTime() <= $course->get('enddate')) {
-                    if ($day->isDayOfWeek($course->get('dayofweek'))) {
-                        $add['courses'][] = $course->getId();
+
+            foreach ($month as $day) {
+                
+                $add = [
+                    'date' => $day->toString(),
+                    'absences' => [],
+                    'courses' => [],
+                    'week' => $day->getDayOfWeek(),
+                ];
+
+                foreach ($absences as $absence) {
+                    if ($absence->isAt($day)) {
+                        $add['absences'][] = [$absence->getId(), intval($absence->get('course'))];
                     }
                 }
+
+                foreach ($courses as $course) {
+                    if ($day->getTime() >= $course->get('startdate') and $day->getTime() <= $course->get('enddate')) {
+                        if ($day->isDayOfWeek($course->get('dayofweek'))) {
+                            $add['courses'][] = $course->getId();
+                        }
+                    }
+                }
+
+                $calendar[$key]['days'][] = $add;
             }
-            $calendar[] = $add;
+
         }
 
         $this->set('calendar', $calendar);
