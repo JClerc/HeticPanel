@@ -29,7 +29,8 @@ Class CalendarController extends Controller {
             
             $calendar[$key] = [
                 'days' => [],
-                'name' => Calendar::getMonthName($key)
+                'name' => Calendar::getMonthName($key),
+                'offset' => $month[0]->getDayOfWeek(),
             ];
 
             foreach ($month as $day) {
@@ -38,7 +39,6 @@ Class CalendarController extends Controller {
                     'date' => $day->toString(),
                     'absences' => [],
                     'courses' => [],
-                    'week' => $day->getDayOfWeek(),
                 ];
 
                 foreach ($absences as $absence) {
