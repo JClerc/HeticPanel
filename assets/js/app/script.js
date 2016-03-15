@@ -8,6 +8,10 @@
 
 var App = {};
 
+$(document).on('click', 'a[href="#"]', function (e) {
+    e.preventDefault();
+});
+
 App.calendar = {};
 
 App.calendar.courseList = function (courses, absences, date) {
