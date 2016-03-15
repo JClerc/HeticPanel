@@ -13,6 +13,7 @@ html, body {
     color: #222;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
+    background-image: url('../img/bureau.png');
 }
 
 input {
