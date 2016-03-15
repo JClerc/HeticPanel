@@ -50,6 +50,18 @@ class Absence extends DataModel {
         ]);
     }
 
+    public function getDate() {
+        $date = new Date;
+        $date->fromTime($this->get('date'));
+        return $date;
+    }
+
+    public function getCourse() {
+        $course = Factory::create(new Course);
+        $course->fromId($this->get('course'));
+        return $course;
+    }
+
     public function changeToLate() {
         $this->set('state', self::STATE_LATE);
         $this->set('updated', time());
