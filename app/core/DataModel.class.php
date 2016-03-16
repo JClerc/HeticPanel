@@ -50,7 +50,11 @@ abstract class DataModel extends Model {
 
     protected function setProperty($key, $value) {
         if (is_array($this->properties[$key])) {
-            $this->properties[$key] = explode(',', $value);
+            if (is_array($value)) {
+                $this->properties[$key] = $value;
+            } else {
+                $this->properties[$key] = explode(',', $value);
+            }
         } else if ($value instanceof DataModel) {
             $this->properties[$key] = $value->getId();
         } else {
@@ -77,6 +81,15 @@ abstract class DataModel extends Model {
             $this->database->update($this->getTable(), $this->serialize(), [
                 'id' => $this->getId()
             ]);
+        }
+    }
+
+    public function delete() {
+        if ($this->exists()) {
+            $this->database->delete($this->getTable(), [
+                'id' => $this->getId()
+            ]);
+            $this->id = 0;
         }
     }
 
@@ -166,6 +179,7 @@ abstract class DataModel extends Model {
         $this->removeCollection($class, $id);
         $list = $this->get($coll);
         $list[] = $id;
+        $this->set($coll, $list);
     }
 
     protected function removeCollection($class, $id) {
@@ -175,6 +189,7 @@ abstract class DataModel extends Model {
         foreach ($list as $key => $value) {
             if (intval($value) === intval($id)) {
                 unset($list[$key]);
+                $this->set($coll, $list);
                 return true;
             }
         }

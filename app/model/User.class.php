@@ -80,18 +80,48 @@ class User extends DataModel {
     }
 
     public function setGroup($group) {
-        $insert = 0;
-        if ($group instanceof DataModel) $insert = $group->getId();
-        else if (is_string($group) or is_int($group)) $insert = intval($group);
+        $groupId = 0;
+        if ($group instanceof DataModel) $groupId = $group->getId();
+        else if (is_string($group) or is_int($group)) $groupId = intval($group);
         else return;
 
-        $this->set('group', $group);
+        $this->set('group', $groupId);
         $this->save();
 
-        $group = Factory::create(new Group);
-        $group->addStudent($this->getId());
-        $group->save();
+        if ($groupId > 0) { 
+            $group = Factory::create(new Group);
+            $group->fromId($groupId);
+            $group->addStudent($this->getId());
+            $group->save();
+        } else {
+            $this->removeGroup();
+        }
 
+    }
+
+    public function removeGroup() {
+        $groupId = intval($this->get('group'));
+
+        if ($groupId > 0) {
+
+            $group = Factory::create(new Group);
+            $group->fromId($groupId);
+            $group->removeStudent($this->getId());
+            $group->save();
+
+        }
+    }
+
+    public function delete() {
+        if ($this->exists()) {
+            $this->database->delete($this->getTable(), [
+                'id' => $this->getId()
+            ]);
+
+            $this->removeGroup();
+
+            $this->id = 0;
+        }
     }
 
 }
