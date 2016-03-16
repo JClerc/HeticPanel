@@ -27,7 +27,7 @@
     </div>
 
     <div class="course-list dashbox nopadding">
-        <div class="item parent">Cours</div>
+        <div class="item parent">Absences</div>
         <?php foreach ($data['courses'] as $course): ?>
             <a class="item view-course" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>" style="display: none;">
                 <?= $course->get('name') ?>
@@ -38,6 +38,9 @@
         </div>
         <div class="item view-course item-no-courses" style="display: none;">
             Aucun cours disponible.
+        </div>
+        <div class="item view-course item-no-absences" style="display: none;">
+            Aucune absence.
         </div>
     </div>
 

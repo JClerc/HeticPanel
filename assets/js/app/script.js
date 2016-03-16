@@ -19,10 +19,13 @@ App.calendar.courseList = function (courses, absences, date) {
     var container = $('.course-list');
     var items = $('.view-course', container);
 
-    // Add default text
+    // Hide courses items
     $('.item-choose-date').hide();
+    $('.item-no-absences').hide();
+    $('.item-no-courses').hide();
 
-    var atLeastOne = false;
+    var hasAbsences = false;
+    var hasCourses = false;
 
     // Pour chaque lien
     items.each(function () {
@@ -37,13 +40,14 @@ App.calendar.courseList = function (courses, absences, date) {
         // Pour savoir si il y a cours ce jour ou pas
         var courseThisDay = courses.indexOf(courseId) > -1;
 
-        if (!courseThisDay) {
-            // S'il y a pas cours, on cahe le lien
-            $link.hide();
-        } else {
-            // Sinon on l'affiche
-            $link.show();
-            atLeastOne = true;
+        // On le cache
+        $link.hide();
+        $link.removeClass('missing');
+
+        if (courseThisDay) {
+
+            // Il y a eu cours
+            hasCourses = true;
 
             // On regarde si il est dans la variable "absences"
             // Pour savoir si il était absent à ce cours
@@ -53,19 +57,15 @@ App.calendar.courseList = function (courses, absences, date) {
 
                 if (absenceAt === courseId) {
 
-                    // Il etait absent
+                    // On affiche le lien
+                    $link.show();
                     $link.addClass('missing');
+
+                    // Il y a eu une absence
+                    hasAbsences = true;
 
                     // Et on fait le lien
                     $link.attr('href', $link.data('src') + absenceId + '/');
-
-                } else {
-
-                    // Tout est ok
-                    $link.removeClass('missing');
-
-                    // On "supprime" le lien car y'a pas d'absence a voir
-                    $link.attr('href', '#');
 
                 }
 
@@ -73,9 +73,14 @@ App.calendar.courseList = function (courses, absences, date) {
 
         }
 
-        // Toggle if there is courses to display or not
-        $('.item-no-courses').toggle(!atLeastOne);
-
+        if (hasCourses) {
+            if (!hasAbsences) {
+                $('.item-no-absences').show();
+            }
+        } else {
+            $('.item-no-courses').show();            
+        }
+        
     });
     return false;
 };

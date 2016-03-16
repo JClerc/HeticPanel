@@ -44,6 +44,7 @@ Class Database extends Model {
     // --------------------------------
 
     public function query($sql, $args = null) {
+
         // Prepare statement
         $stmt = $this->pdo->prepare($sql);
 
@@ -119,7 +120,7 @@ Class Database extends Model {
         $this->query = 'INSERT INTO ' . $table;
 
         // (a, b, c) VALUES (x, y, z)
-        $this->appendInsert($values, $args);
+        $this->appendInsert($values);
 
         // Execute and return
         $this->run();
@@ -185,20 +186,21 @@ Class Database extends Model {
     private function appendUpdate($values) {
         foreach ($values as $key => $value) {
             // SET a = ?
-            $this->query .= $key . ' = ?';
+            $this->query .= ' `' . $key . '` = ?,';
 
             // And add argument for later
             $this->args[] = $value;
         }
+        $this->query = rtrim($this->query, ',');
     }
 
-    private function appendInsert($array, $args = null) {
+    private function appendInsert($array) {
         // If array is like [a => b]
         // We add (a, b, c) before VALUES
         if (!empty($array) and $this->isAssociative($array)) {
             $this->query .= ' (';
-            foreach ($array as $value) {
-                 $this->query .= $value . ',';
+            foreach ($array as $key => $value) {
+                 $this->query .= '`' . $key . '`,';
             }
             // Remove , add the end
             $this->query = trim($this->query, ',');

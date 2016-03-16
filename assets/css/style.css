@@ -371,7 +371,13 @@ html, body {
 }
 
 .course-list .item.missing {
-    background: #E68664;
+    background: #EB9E83;
     color: white;
     cursor: pointer;
+    transition: all .2s;
 }
+
+.course-list .item.missing:hover {
+    background: #E68664;
+}
+
