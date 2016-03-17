@@ -167,9 +167,15 @@ class Core {
         $base = get_class_methods('Controller');
         $avaliable = array_diff($methods, $base);
 
+        // Get normal method
+        if (in_array($method, $avaliable)) {
+
+            // Just insert $args
+            return $controller->$method($args);
+        }
+
         // Get methodPost if it exists
-        if (POST and in_array($method . 'Post', $avaliable)) {
-        // if (POST and method_exists($controller, $method . 'Post')) {
+        else if (POST and in_array($method . 'Post', $avaliable)) {
 
             // Method will be methodPost
             $method = $method . 'Post';
@@ -180,7 +186,6 @@ class Core {
 
         // Get GET method if it exists
         else if (GET and in_array($method . 'Get', $avaliable)) {
-        // else if (GET and method_exists($controller, $method . 'Get')) {
 
             // Method will be methodGet
             $method = $method . 'Get';
@@ -188,13 +193,6 @@ class Core {
             // We insert $args and $_GET
             return $controller->$method($args, $_GET);
 
-        }
-
-        // Get normal method
-        else if (in_array($method, $avaliable)) {
-        // else if (method_exists($controller, $method)) {
-            // Just insert $args
-            return $controller->$method($args);
         }
 
         return false;

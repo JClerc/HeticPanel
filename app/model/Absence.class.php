@@ -72,6 +72,12 @@ class Absence extends DataModel {
         return $course;
     }
 
+    public function getStudent() {
+        $student = Factory::create(new User);
+        $student->fromId($this->get('student'));
+        return $student;
+    }
+
     public function isResolved() {
         $state = intval($this->get('state'));
         return ($state === self::STATE_LATE or $state === self::STATE_ACCEPTED);
