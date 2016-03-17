@@ -27,6 +27,16 @@ class Absence extends DataModel {
         return intval($this->get('course')) === $course->getId();
     }
 
+    public function ofStudentInCourse(User $user, Course $course) {
+        $row = $this->database->get($this->getTable(), [
+            'student' => $user->getId(),
+            'course' => $course->getId()
+        ]);
+        if (!empty($row)) {
+            $this->fromEntry($row);
+        }
+    }
+
     public function ofStudent(User $user) {
         return $this->createCollection('Absence', $this->database->all($this->getTable(), [
             'student' => $user->getId()

@@ -157,9 +157,9 @@ Class Database extends Model {
                 // WHERE
                 $this->query .= ' WHERE';
 
+                $first = true;
                 foreach ($where as $key => $value) {
                     // First doesnt have AND before
-                    $first = true;
                     if ($first === true) $first = false;
                     else $this->query .= ' AND';
                     

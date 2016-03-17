@@ -20,11 +20,23 @@ abstract class DataModel extends Model {
         ]);
 
         if (count($rows) === 1) {
-            $this->set($rows[0]);
-            $this->id = intval($rows[0]['id']);
-            return true;
+            return $this->fromEntry($rows[0]);
+            // $this->set($rows[0]);
+            // $this->id = intval($rows[0]['id']);
+            // return true;
         }
 
+        return false;
+    }
+
+    public function fromEntry($row) {
+        $id = intval($row['id']);
+        unset($row['id']);
+        if (count($row) === count($this->properties) and $id > 0) {
+            $this->set($row);
+            $this->id = $id;
+            return true;
+        }
         return false;
     }
 
