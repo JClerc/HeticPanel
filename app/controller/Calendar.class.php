@@ -2,7 +2,7 @@
 
 Class CalendarController extends Controller {
 
-    const DEPENDENCIES = ['Auth'];
+    const DEPENDENCIES = ['Auth', 'Flash'];
 
     const PERMISSION_REQUIRED = User::STUDENT;
 

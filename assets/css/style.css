@@ -162,16 +162,24 @@ html, body {
 }
 
 .alert {
-    height: 35px;
     font-weight: bold;
+    padding: 15px;
+    border-radius: 2px;
+    height: auto;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .alert.alert-success {
-    color: #0FC038;
+    color: #2CBE4D;
+    border: 1px solid #A1C296;
+    background: #F2F9ED;
 }
 
 .alert.alert-error {
     color: #C0332C;
+    border: 1px solid #AF7A65;
+    background: #FBF4F2;
 }
 
 

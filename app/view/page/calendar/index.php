@@ -3,6 +3,8 @@
 
 <div class="container">
     <h3 class="title">Mes absences</h3>
+
+    <?php $this->flash->display() ?>
     
     <div class="calendar dashbox">
         <?php foreach ($data['calendar'] as $month): ?>

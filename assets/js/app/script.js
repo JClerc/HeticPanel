@@ -12,6 +12,12 @@ $(document).on('click', 'a[href="#"]', function (e) {
     e.preventDefault();
 });
 
+setTimeout(function () {
+
+    $('.alert').slideUp();
+
+}, 3000);
+
 App.calendar = {};
 
 App.calendar.courseList = function (courses, absences, date) {

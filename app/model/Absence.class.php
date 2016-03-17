@@ -86,22 +86,26 @@ class Absence extends DataModel {
     public function changeToLate() {
         $this->set('state', self::STATE_LATE);
         $this->set('updated', time());
+        $this->save();
     }
 
     public function addReason($reason) {
         $this->set('reason', $reason);
         $this->set('state', self::STATE_PENDING);
         $this->set('updated', time());
+        $this->save();
     }
 
     public function acceptReason() {
         $this->set('state', self::STATE_ACCEPTED);
         $this->set('updated', time());
+        $this->save();
     }
 
     public function denyReason() {
         $this->set('state', self::STATE_DENIED);
         $this->set('updated', time());
+        $this->save();
     }
 
 }
