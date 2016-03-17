@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Mar 16, 2016 at 11:55 PM
+-- Generation Time: Mar 17, 2016 at 11:16 PM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -33,15 +33,16 @@ CREATE TABLE `absences` (
   `course` int(11) NOT NULL,
   `reason` text COLLATE utf8_unicode_ci NOT NULL,
   `state` int(11) NOT NULL,
-  `updated` int(11) NOT NULL
+  `updated` int(11) NOT NULL,
+  `denyreason` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `absences`
 --
 
-INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`) VALUES
-(1, 1, 1457910000, 2, '', 0, 1458001706);
+INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`, `denyreason`) VALUES
+(1, 1, 1457910000, 2, 'Bonjour je suis malade', 2, 1458250209, '');
 
 -- --------------------------------------------------------
 

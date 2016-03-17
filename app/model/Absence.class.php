@@ -9,12 +9,13 @@ class Absence extends DataModel {
     const STATE_ACCEPTED = 4;
 
     protected $properties = [
-        'student'  => 0,
-        'date'     => 0,
-        'course'   => 0,
-        'reason'   => '',
-        'state'    => 0,
-        'updated'  => 0,
+        'student'    => 0,
+        'date'       => 0,
+        'course'     => 0,
+        'reason'     => '',
+        'state'      => 0,
+        'updated'    => 0,
+        'denyreason' => '',
     ];
 
     public function isAt(Date $date) {
@@ -51,12 +52,13 @@ class Absence extends DataModel {
 
     public function create(User $student, Date $date, Course $course) {
         return $this->make([
-            'student'  => $student,
-            'date'     => $date->getTime(),
-            'course'   => $course,
-            'reason'   => '',
-            'state'    => 0,
-            'updated'  => time(),
+            'student'    => $student,
+            'date'       => $date->getTime(),
+            'course'     => $course,
+            'reason'     => '',
+            'state'      => 0,
+            'updated'    => time(),
+            'denyreason' => ''
         ]);
     }
 
@@ -99,12 +101,14 @@ class Absence extends DataModel {
     public function acceptReason() {
         $this->set('state', self::STATE_ACCEPTED);
         $this->set('updated', time());
+        $this->set('denyreason', '');
         $this->save();
     }
 
-    public function denyReason() {
+    public function denyReason($reason = '') {
         $this->set('state', self::STATE_DENIED);
         $this->set('updated', time());
+        $this->set('denyreason', $reason);
         $this->save();
     }
 

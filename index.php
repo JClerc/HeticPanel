@@ -52,18 +52,26 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST') {
 }
 
 
-
 /*
  * --------------------------------
  *             Router
  * --------------------------------
  *
  */
-
-
 $router = new Router;
 $router->parse($_SERVER['REQUEST_URI']);
 
 $core = new Core;
 $core->start();
 $core->follow($router);
+
+
+/*
+ * --------------------------------
+ *       Helpers functions
+ * --------------------------------
+ *
+ */
+function e($html) {
+    return htmlentities($html, ENT_QUOTES, 'UTF-8');
+}

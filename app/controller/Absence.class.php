@@ -44,7 +44,7 @@ class AbsenceController extends Controller {
                         $information = 'Votre justificatif a été accepté.';
                     }
 
-                    $this->set('currentReason', $currentReason);
+                    $this->set('currentReason', e($currentReason));
                     $this->set('information', $information);
                     $this->set('form', $form);
 
