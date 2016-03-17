@@ -7,9 +7,14 @@
     <?php $this->flash->display() ?>
     
     <div class="calendar dashbox">
+        <span class="calendar-control previous" data-switch="previous"><a href="#">&larr; Mois précédent</a></span>
+        <span href="#" class="calendar-control next" data-switch="next"><a href="#">Mois suivant &rarr;</a></span>
+
         <?php foreach ($data['calendar'] as $month): ?>
             <div class="month <?= $month['current'] ? 'active' : '' ?>">
                 <h3 class="month-name"><?= $month['name'] ?></h3>
+                <div class="clear"></div>
+
                 <?php for ($i = 1; $i < count(Calendar::DAY_LOCALE_FR); $i++): ?>                    
                     <div class="item item-label"><?= Calendar::DAY_LOCALE_FR[$i] ?></div>
                 <?php endfor; ?>

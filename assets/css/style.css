@@ -389,3 +389,22 @@ html, body {
     background: #E68664;
 }
 
+.calendar-control {
+    width: 120px;
+    height: 25px;
+    padding-top: 5px;
+}
+
+.calendar-control a {
+    color: #7D7E7B;
+}
+
+.calendar-control.previous {
+    float: left;
+    text-align: left;
+}
+
+.calendar-control.next {
+    float: right;
+    text-align: right;
+}
