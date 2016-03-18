@@ -51,7 +51,7 @@ class Absence extends DataModel {
     }
 
     public function create(User $student, Date $date, Course $course) {
-        return $this->make([
+        return $this->insert([
             'student'    => $student,
             'date'       => $date->getTime(),
             'course'     => $course,

@@ -4,7 +4,7 @@
 <div class="container">
     <h3 class="title">Mes absences</h3>
 
-    <?php $this->flash->display() ?>
+    <?php $data['flash']->display() ?>
 
     <form method="post">
         <input type="password" name="password" placeholder="Mot de passe">

@@ -4,7 +4,7 @@
 <div class="container">
     <h3 class="title">Absence du <?= $data['date']->getDay() ?> <?= $data['date']->getMonthName() ?></h3>
 
-    <?php $this->flash->display() ?>
+    <?php $data['flash']->display() ?>
     
     <div class="course-list dashbox nopadding">
         <div class="item parent">Cours manqué</div>

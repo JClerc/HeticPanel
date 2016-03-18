@@ -10,7 +10,7 @@
 		
 			<form method="POST" class="login-form">
 				<div class="login-box">
-					<?php $this->flash->display() ?>
+					<?php $data['flash']->display() ?>
 
 					<label for="username">Identifiant</label>
 				    <input type="text" name="username" placeholder="Entrez votre identifiant">

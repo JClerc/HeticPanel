@@ -9,6 +9,13 @@ abstract class DataModel extends Model {
     protected $id = 0;
     protected $properties = null;
 
+    public static function make($id = null) {
+        $class = get_called_class();
+        $obj = Factory::create(new $class);
+        if (is_int($id)) $obj->fromId($id);
+        return $obj;
+    }
+
     public function fromId($id) {
         return $this->fromProperty('id', $id);
     }
@@ -138,16 +145,21 @@ abstract class DataModel extends Model {
         return $properties;
     }
 
-    protected function make(array $properties) {
+    protected function insert(array $properties) {
         $this->set($properties);
         $this->id = (int) $this->database->insert($this->getTable(), $this->serialize());
         return $this->exists();
     }
 
     protected function getCollection($class, $id = null) {
-        $coll = strtolower($class) . 's';
-        if (!class_exists($class)) {
-            throw new Exception('Unknown collection class: ' . $class);
+        if (is_array($class)) {
+            $coll = $class[1];
+            $class = $class[0];
+        } else {        
+            $coll = strtolower($class) . 's';
+            if (!class_exists($class)) {
+                throw new Exception('Unknown collection class: ' . $class);
+            }
         }
         if ($id === null) {
             $ret = [];

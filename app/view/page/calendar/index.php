@@ -4,7 +4,7 @@
 <div class="container">
     <h3 class="title">Mes absences</h3>
 
-    <?php $this->flash->display() ?>
+    <?php $data['flash']->display() ?>
     
     <div class="calendar dashbox">
         <span class="calendar-control previous"><a data-switch="prev" data-change="-1" href="#">&larr; Mois précédent</a></span>

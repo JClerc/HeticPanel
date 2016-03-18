@@ -10,7 +10,7 @@ class Group extends DataModel {
     ];
     
     public function create($index, array $students, array $courses) {
-        return $this->make([
+        return $this->insert([
             'index' => $index,
             'promotion' => $promotion,
             'students' => $students,
@@ -19,23 +19,23 @@ class Group extends DataModel {
     }
 
     public function getStudent($id = null) {
-        return $this->getCollection('Student', $id);
+        return $this->getCollection(['User', 'students'], $id);
     }
 
     public function getStudents() {
-        return $this->getCollection('Student');
+        return $this->getCollection(['User', 'students']);
     }
 
     public function hasStudent($id = null) {
-        return $this->hasCollection('Student', $id);
+        return $this->hasCollection(['User', 'students'], $id);
     }
 
     public function addStudent($id) {
-        return $this->addCollection('Student', $id);
+        return $this->addCollection(['User', 'students'], $id);
     }
 
     public function removeStudent($id) {
-        return $this->removeCollection('Student', $id);
+        return $this->removeCollection(['User', 'students'], $id);
     }
 
     public function getCourse($id = null) {

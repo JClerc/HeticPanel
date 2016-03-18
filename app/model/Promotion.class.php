@@ -8,7 +8,7 @@ class Promotion extends Model {
     ];
     
     public function create($year, array $groups) {
-        return $this->make([
+        return $this->insert([
             'year' => $year,
             'groups' => $groups,
         ]);

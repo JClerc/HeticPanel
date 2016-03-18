@@ -11,8 +11,12 @@ class IndexController extends Controller {
         if ($this->auth->isLogged()) {
 
             // Go to panel
-            if ($this->auth->hasPermission(User::TEACHER)) {
+            if ($this->auth->hasPermission(User::STAFF)) {
                 $this->router->go('panel');
+
+            // Go to teacher
+            } else if ($this->auth->hasPermission(User::TEACHER)) {
+                $this->router->go('teacher');
 
             // Go to calender
             } else {

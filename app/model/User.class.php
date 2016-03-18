@@ -55,7 +55,7 @@ class User extends DataModel {
         if ($permission < User::NONE or $permission > User::STAFF)
             throw new Exception('La permission est incorrecte.');
 
-        $ret = $this->make([
+        $ret = $this->insert([
             'username'   => $username,
             'password'   => $this->crypt->createHash($password),
             'email'      => $email,
@@ -133,6 +133,13 @@ class User extends DataModel {
 
             $this->id = 0;
         }
+    }
+
+    public static function sortByLastName($list) {
+        usort($list, function ($a, $b) {
+            return strcmp($a->get('lastname'), $b->get('lastname'));
+        });
+        return $list;
     }
 
 }

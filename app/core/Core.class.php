@@ -14,10 +14,13 @@ class Core {
     }
 
     public function start() {
-        // Add core
+
+        // Add dependencies
+
+        // + core
         Factory::addDependency($this);
 
-        // Add database
+        // + database
         $database = new Database;
         $database->connect('localhost', 'hetic_panel', 'root', 'root');
         Factory::addDependency($database);
@@ -27,14 +30,21 @@ class Core {
             throw new Exception('Can\'t connect to databse.');
         }
 
-        // Add session
+        // + session
         $session = new Session;
         $session->start();
         Factory::addDependency($session);
 
-        // Add current user
+        // Add default data
+
+        // + current user
         $auth = Factory::create(new Auth);
         self::set('user', $auth->current());
+
+        // + flash
+        $flash = Factory::create(new Flash);
+        self::set('flash', $flash);
+        
     }
 
     public function follow($router) {
