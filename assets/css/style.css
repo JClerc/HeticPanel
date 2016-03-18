@@ -171,14 +171,14 @@ html, body {
 }
 
 .alert.alert-success {
-    color: #2CBE4D;
-    border: 1px solid #A1C296;
-    background: #F2F9ED;
+    color: #729B72;
+    border: 1px solid #BECABA;
+    background: #EFF5EB;
 }
 
 .alert.alert-error {
-    color: #C0332C;
-    border: 1px solid #AF7A65;
+    color: #996260;
+    border: 1px solid #D0BFB8;
     background: #FBF4F2;
 }
 
