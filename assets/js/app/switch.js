@@ -1,32 +1,37 @@
-$('[data-switch]').on('click', function () {
-    var action = $(this).data('switch');
-    var currentMonth = $('.month.active');
-    var currentIndex = currentMonth.index();
-    var count = $('.month').length;
+$(function () {
+    var currentMonthIndex = $('.month.active').index() - 1;
 
-    switch(action) {
-        case 'previous':
-            if (currentIndex < 3) return;
+    $('[data-switch]').on('click', function () {
+        var action = $(this).data('switch');
+        var currentMonth = $('.month.active');
+        var currentIndex = currentMonth.index();
+        var count = $('.month').length;
 
-            currentMonth.removeClass('active');
+        switch(action) {
+            case 'previous':
+                if (currentIndex < 3) return;
 
-            var newIndex = currentIndex - 3;
-            $($('.month')[newIndex]).addClass('active');
-            break;
-        case 'next':
-            if (currentIndex > count) return;
+                currentMonth.removeClass('active');
 
-            currentMonth.removeClass('active');
-            
-            var newIndex = currentIndex - 1;
-            $($('.month')[newIndex]).addClass('active');
-            break;
-    }
+                var newIndex = currentIndex - 3;
+                $($('.month')[newIndex]).addClass('active');
+                break;
+            case 'next':
+                if (currentIndex > currentMonthIndex) return;
 
-    if (newIndex <= 0) $('[data-switch="previous"] a').hide();
-    else $('[data-switch="previous"] a').show();
+                currentMonth.removeClass('active');
+                
+                var newIndex = currentIndex - 1;
+                $($('.month')[newIndex]).addClass('active');
+                break;
+        }
 
-    if (newIndex >= (count - 1)) $('[data-switch="next"] a').hide();
-    else $('[data-switch="next"] a').show();
+        console.log(newIndex);
 
+        if (newIndex <= 0) $('[data-switch="previous"] a').hide();
+        else $('[data-switch="previous"] a').show();
+
+        if (newIndex >= currentMonthIndex - 1) $('[data-switch="next"] a').hide();
+        else $('[data-switch="next"] a').show();
+    });
 });
