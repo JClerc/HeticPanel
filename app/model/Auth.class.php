@@ -30,6 +30,22 @@ class Auth extends Model {
         return false;
     }
 
+    public function setUser(User $user) {
+        if ($user->exists()) {
+            // Set current user
+            $this->current = $user;
+
+            // Store in session
+            $this->session->set('current.user.id',       $user->getId());
+            $this->session->set('current.user.username', $user->get('username'));
+            $this->session->set('current.user.hash',     hash('sha256', $user->get('password')));
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function login($username, $password) {
         // Create new user
         $user = Factory::create(new User);
@@ -43,16 +59,8 @@ class Auth extends Model {
             // Check password
             if ($this->crypt->compareHash($user->get('password'), $password)) {
 
-                // Set current user
-                $this->current = $user;
-
-                // Store in session
-                $this->session->set('current.user.id',       $user->getId());
-                $this->session->set('current.user.username', $user->get('username'));
-                $this->session->set('current.user.hash',     hash('sha256', $user->get('password')));
-
-                // And login !
-                return true;
+                return $this->setUser($user);
+                
             }
 
         }

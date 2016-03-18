@@ -63,4 +63,21 @@ class AuthController extends Controller {
 
     }
 
+    public function settingsGet($request) {}
+
+    public function settingsPost($request, $post) {
+        if ($post['password'] === $post['confirm']) {
+            try {
+                $user = $this->auth->current();
+                $user->setPassword($post['password']);
+                $this->auth->setUser($user);
+                $this->flash->set(true, 'Mot de passe mis à jour !');
+            } catch (Exception $e) {
+                $this->flash->set(false, $e->getMessage());
+            }
+            return; 
+        }
+        $this->flash->set(false, 'Les mots de passes sont différents.');
+    }
+
 }

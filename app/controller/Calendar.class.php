@@ -10,9 +10,6 @@ Class CalendarController extends Controller {
         // Get current user
         $user = $this->auth->current();
         
-        // Pass data to view
-        $this->set('user', $user);
-
         // Pass courses
         $group = $user->getGroup();
         $courses = $group->getCourses();

@@ -43,7 +43,7 @@ class User extends DataModel {
         if (strlen($email) < 3 or strlen($email) > 100 or strpos($email, '@') === false)
             throw new Exception('L\'email est incorrecte.');
 
-        if (strlen($password) < 3 or strlen($password) > 20)
+        if (strlen($password) < 3 or strlen($password) > 30)
             throw new Exception('Le mot de passe est incorrect.');
 
         if (strlen($firstname) < 3 or strlen($firstname) > 40)
@@ -110,6 +110,17 @@ class User extends DataModel {
             $group->save();
 
         }
+    }
+
+    public function setPassword($password) {
+        if (strlen($password) < 3)
+            throw new Exception('Le mot de passe est trop court.');
+
+        if (strlen($password) > 30)
+            throw new Exception('Le mot de passe est trop long.');
+
+        $this->set('password', $this->crypt->createHash($password));
+        $this->save();
     }
 
     public function delete() {

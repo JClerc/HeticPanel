@@ -2,6 +2,17 @@
 
 class Core {
 
+    private static $data = [];
+
+    public static function set($key, $value) {
+        self::$data[$key] = $value;
+    }
+
+    public static function get($key = null) {
+        if (!isset($key)) return self::$data;
+        return isset(self::$data[$key]) ? self::$data[$key] : null;
+    }
+
     public function start() {
         // Add core
         Factory::addDependency($this);
@@ -20,6 +31,10 @@ class Core {
         $session = new Session;
         $session->start();
         Factory::addDependency($session);
+
+        // Add current user
+        $auth = Factory::create(new Auth);
+        self::set('user', $auth->current());
     }
 
     public function follow($router) {

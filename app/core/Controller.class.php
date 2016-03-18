@@ -27,7 +27,7 @@ abstract class Controller {
         if (is_file(VIEW . $view . '.php')) {
 
             // Easier way to access data
-            $data = $this->data;
+            $data = array_merge(Core::get(), $this->data);
 
             // Include the file
             require VIEW . $view . '.php';
