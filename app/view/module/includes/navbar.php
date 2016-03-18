@@ -10,6 +10,7 @@
 			<div class="infos">
 				<?= $data['user']->get('firstname'); ?> <?= strtoupper($data['user']->get('lastname')); ?>
 				<a href="/auth/settings/">éditer mon profil</a>
+			</div>
 		</div>
 	</div>
 </header>
