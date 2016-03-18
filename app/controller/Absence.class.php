@@ -44,10 +44,6 @@ class AbsenceController extends Controller {
                         $information = 'Votre justificatif a été accepté.';
                     }
 
-                    $this->set('currentReason', e($currentReason));
-                    $this->set('information', $information);
-                    $this->set('form', $form);
-
                     if (POST) {
 
                         if (empty($_POST['reason'])) {
@@ -76,10 +72,15 @@ class AbsenceController extends Controller {
                         }
 
                         $absence->addReason($_POST['reason']);
+                        $currentReason = $_POST['reason'];
                         
                         $this->flash->set(true, 'Justification envoyée !');
 
                     }
+
+                    $this->set('currentReason', e($currentReason));
+                    $this->set('information', $information);
+                    $this->set('form', $form);
 
                     return;
 
