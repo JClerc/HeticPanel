@@ -23,6 +23,9 @@ define('MODEL', APP . 'model/');
 define('VIEW', APP . 'view/');
 define('FILES', 'files/');
 
+// define('TIME', time());
+define('TIME', 1457947081);
+
 
 /*
  * --------------------------------

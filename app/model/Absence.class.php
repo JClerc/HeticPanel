@@ -24,18 +24,39 @@ class Absence extends DataModel {
         return $current->equals($date);
     }
 
-    public function isFor(Course $course) {
+    public function isIn(Course $course) {
         return intval($this->get('course')) === $course->getId();
     }
 
+    public function isFor(User $user) {
+        return intval($this->get('student')) === $user->getId();
+    }
+
     public function ofStudentInCourse(User $user, Course $course) {
-        $row = $this->database->get($this->getTable(), [
+        return $this->createCollection('Absence', $this->database->all($this->getTable(), [
             'student' => $user->getId(),
             'course' => $course->getId()
+        ]));
+    }
+
+    public function ofStudentInCourseAt(User $user, Course $course, Date $date = null) {
+        if (!isset($date)) $date = new Date;
+        $row = $this->database->get($this->getTable(), [
+            'student' => $user->getId(),
+            'course' => $course->getId(),
+            'date' => $date->getTime(),
         ]);
         if (!empty($row)) {
             $this->fromEntry($row);
         }
+    }
+
+    public function ofCourseAt(Course $course, Date $date = null) {
+        if (!isset($date)) $date = new Date;
+        return $this->createCollection('Absence', $this->database->all($this->getTable(), [
+            'course' => $course->getId(),
+            'date' => $date->getTime(),
+        ]));
     }
 
     public function ofStudent(User $user) {
@@ -57,7 +78,7 @@ class Absence extends DataModel {
             'course'     => $course,
             'reason'     => '',
             'state'      => 0,
-            'updated'    => time(),
+            'updated'    => TIME,
             'denyreason' => ''
         ]);
     }
@@ -87,27 +108,27 @@ class Absence extends DataModel {
 
     public function changeToLate() {
         $this->set('state', self::STATE_LATE);
-        $this->set('updated', time());
+        $this->set('updated', TIME);
         $this->save();
     }
 
     public function addReason($reason) {
         $this->set('reason', $reason);
         $this->set('state', self::STATE_PENDING);
-        $this->set('updated', time());
+        $this->set('updated', TIME);
         $this->save();
     }
 
     public function acceptReason() {
         $this->set('state', self::STATE_ACCEPTED);
-        $this->set('updated', time());
+        $this->set('updated', TIME);
         $this->set('denyreason', '');
         $this->save();
     }
 
     public function denyReason($reason = '') {
         $this->set('state', self::STATE_DENIED);
-        $this->set('updated', time());
+        $this->set('updated', TIME);
         $this->set('denyreason', $reason);
         $this->save();
     }

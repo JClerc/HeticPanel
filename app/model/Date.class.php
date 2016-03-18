@@ -5,7 +5,7 @@ class Date extends Model {
     private $time = 0;
 
     public function __construct() {
-        $this->fromTime(time());
+        $this->fromTime(TIME);
     }
 
     public function fromTime($time) {

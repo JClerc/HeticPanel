@@ -2,14 +2,37 @@
 
 class TeacherController extends Controller {
 
-    const DEPENDENCIES = ['Auth'];
+    const DEPENDENCIES = ['Auth', 'Flash', 'Router'];
 
     // Students doesnt have a panel
     const PERMISSION_REQUIRED = User::TEACHER;
 
     public function index($request) {}
 
+    public function roll($request) {
+        $result = $this->processStudents();
+        if (POST) {
+            if ($result) {
+                $this->flash->set(true, 'Feuille d\'appel sauvegardée !');
+            } else {
+                $this->flash->set(false, 'Impossible de sauvegarder la feuille d\'appel..');
+            }
+            $this->router->go('teacher');
+        }
+    }
+
     public function course($request) {
+        $result = $this->processStudents();
+        if (POST) {
+            if ($result) {
+                $this->flash->set(true, 'Feuille d\'appel sauvegardée !');
+            } else {
+                $this->flash->set(false, 'Impossible de sauvegarder la feuille d\'appel..');
+            }
+        }
+    }
+
+    private function processStudents() {
 
         $course = Course::make();
         $course->fromTeacherAtTime($this->auth->current());
@@ -17,30 +40,67 @@ class TeacherController extends Controller {
         if ($course->exists()) {
 
             $students = $course->getStudents();
-            $students = User::sortByLastName($students);
-        }
+            
+            if (!empty($students)) {
 
-        if (POST) {
-            if (isset($post['absences'])) {
-                if ($this->updateAbsences($post['absences'])) {
+                $students = User::sortByLastName($students);
+                $absences = Absence::make()->ofCourseAt($course);
 
-                } else {
-
+                if (POST) {
+                    $sendedAbsences = isset($_POST['absences']) ? $_POST['absences'] : [];
+                    $date = new Date;
+                    $removeAbsences = $absences;
+                    foreach ($sendedAbsences as $absent) {
+                        $id = intval($absent);
+                        if ($id > 0) {
+                            $found = false;
+                            $student = User::make($id);
+                            foreach ($removeAbsences as $key => $removeAbsence) {
+                                if ($removeAbsence->isFor($student)) {
+                                    unset($removeAbsences[$key]);
+                                    $found = true;
+                                    break;
+                                }
+                            }
+                            if (!$found) {
+                                $absence = Absence::make();
+                                $absence->create($student, $date, $course);
+                            }
+                        }
+                    }
+                    foreach ($removeAbsences as $removeAbsence) {
+                        $removeAbsence->delete();
+                    }
                 }
+
+                // Refresh addition and deletion
+                $absences = Absence::make()->ofCourseAt($course);
+
+                $list = [];
+                $i = 0;
+
+                foreach ($students as $student) {
+                    $absent = false;
+                    foreach ($absences as $absence) {
+                        $absent = ($absent or $absence->isFor($student));
+                    }
+                    $list[] = [
+                        'user' => $student,
+                        'absent' => $absent,
+                        'class' => $i === 0 ? 'current' : ($i === 1 ? 'next' : ''),
+                        'index' => $i++,
+                    ];
+                }
+
+                $this->set('students', $list);
+
+                return true;
+
             }
         }
 
-    }
+        return false;
 
-    private function updateAbsences($absences) {
-        $result = true;
-        foreach ($absences as $absent) {
-            $id = intval($absent);
-            if ($id > 0) {
-                $student = User::make($id);
-            }
-        }
-        return $result;
     }
 
 }

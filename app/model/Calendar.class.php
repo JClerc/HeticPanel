@@ -37,7 +37,7 @@ class Calendar extends Model {
 
         if (!isset($year)) {
             $year = date('Y');
-            while (strtotime('01-' . self::SCHOOL_YEAR_START . '-' . $year) > time()) {
+            while (strtotime('01-' . self::SCHOOL_YEAR_START . '-' . $year) > TIME) {
                 $year--;
             }
         }

@@ -30,10 +30,13 @@ class Course extends DataModel {
         ]));
     }
 
-    public function fromTeacherAtTime(User $user, Date $date = null, $time = null) {
+    public function fromTeacherAtTime(User $user, Date $date = null, $time = TIME) {
         if (!isset($date)) $date = new Date;
-        if (!isset($time)) $time = time();
+        if (!isset($time)) $time = TIME;
         $time = $time % 86400;
+
+        $r = $this->database->get($this->getTable());
+
         $this->fromEntry($this->database->get($this->getTable(), 'teacher = ? AND startdate <= ? AND enddate >= ? AND dayofweek = ? AND starttime <= ? AND endtime >= ?', [
             $user->getId(),
             $date->getTime(),
