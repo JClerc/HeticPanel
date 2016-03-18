@@ -87,6 +87,14 @@ class Date extends Model {
         return date('Y', $this->time);
     }
 
+    public function getMonthName() {
+        return Calendar::MONTH_LOCALE_FR[intval($this->getMonth())];
+    }
+
+    public function getDayName() {
+        return Calendar::DAY_LOCALE_FR[intval($this->getDayOfWeek())];
+    }
+
     public function fromString($string) {
         $date = date('d-m-Y', strtotime($string));
         $this->time = strtotime($date);

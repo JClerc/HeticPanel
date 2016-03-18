@@ -2,7 +2,7 @@
 <?php $this->view('module/includes/navbar') ?>
 
 <div class="container">
-    <h3 class="title">Absence du <?= $data['date']->toString() ?></h3>
+    <h3 class="title">Absence du <?= $data['date']->getDay() ?> <?= $data['date']->getMonthName() ?></h3>
 
     <?php $this->flash->display() ?>
     
