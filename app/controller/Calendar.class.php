@@ -23,6 +23,7 @@ Class CalendarController extends Controller {
         $calendar = [];
 
         $today = new Date;
+        $i = 0;
 
         foreach ($months as $key => $month) {
             
@@ -31,6 +32,7 @@ Class CalendarController extends Controller {
                 'name' => Calendar::getMonthName($key),
                 'offset' => $month[0]->getDayOfWeek(),
                 'current' => false,
+                'index' => $i++,
             ];
 
             foreach ($month as $day) {

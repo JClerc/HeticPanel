@@ -1,37 +1,20 @@
-$(function () {
-    var currentMonthIndex = $('.month.active').index() - 1;
+var currentMonth = $('.month.active');
+var currentMonthIndex = ~~currentMonth.data('index');
 
-    $('[data-switch]').on('click', function () {
-        var action = $(this).data('switch');
-        var currentMonth = $('.month.active');
-        var currentIndex = currentMonth.index();
-        var count = $('.month').length;
+$('[data-switch]').on('click', function () {
+    var activeMonth = $('.month.active');
+    var activeIndex = ~~activeMonth.data('index');
+    var change = activeIndex + ~~$(this).data('change');
+    var target = $('.month[data-index="' + change + '"]');
 
-        switch(action) {
-            case 'previous':
-                if (currentIndex < 3) return;
+    if (target.length > 0) {
+        target.addClass('active');
+        activeMonth.removeClass('active');
 
-                currentMonth.removeClass('active');
+        if (change <= 0) $('[data-switch="prev"]').hide();
+        else $('[data-switch="prev"]').show();
 
-                var newIndex = currentIndex - 3;
-                $($('.month')[newIndex]).addClass('active');
-                break;
-            case 'next':
-                if (currentIndex > currentMonthIndex) return;
-
-                currentMonth.removeClass('active');
-                
-                var newIndex = currentIndex - 1;
-                $($('.month')[newIndex]).addClass('active');
-                break;
-        }
-
-        console.log(newIndex);
-
-        if (newIndex <= 0) $('[data-switch="previous"] a').hide();
-        else $('[data-switch="previous"] a').show();
-
-        if (newIndex >= currentMonthIndex - 1) $('[data-switch="next"] a').hide();
-        else $('[data-switch="next"] a').show();
-    });
+        if (change >= currentMonthIndex) $('[data-switch="next"]').hide();
+        else $('[data-switch="next"]').show();
+    }
 });
