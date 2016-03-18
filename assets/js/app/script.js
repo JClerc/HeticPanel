@@ -48,7 +48,6 @@ App.calendar.courseList = function (courses, absences, date) {
 
         // On le cache
         $link.hide();
-        $link.removeClass('missing');
 
         if (courseThisDay) {
 
@@ -65,7 +64,6 @@ App.calendar.courseList = function (courses, absences, date) {
 
                     // On affiche le lien
                     $link.show();
-                    $link.addClass('missing');
 
                     // Il y a eu une absence
                     hasAbsences = true;

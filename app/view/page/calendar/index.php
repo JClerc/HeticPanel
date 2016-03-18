@@ -39,7 +39,7 @@
     <div class="course-list dashbox nopadding">
         <div class="item parent">Absences</div>
         <?php foreach ($data['courses'] as $course): ?>
-            <a class="item view-course" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>" style="display: none;">
+            <a class="item view-course missing" href="#" data-src="/absence/review/" data-id="<?= $course->getId() ?>" style="display: none;">
                 <?= $course->get('name') ?>
             </a>
         <?php endforeach; ?>

@@ -1,14 +1,14 @@
 <?php
 
-class PanelController extends Controller {
+class TeacherController extends Controller {
 
     const DEPENDENCIES = ['Auth'];
 
     // Students doesnt have a panel
     const PERMISSION_REQUIRED = User::TEACHER;
 
-    public function index() {
-        $this->set('user', $this->auth->current());
-    }
+    public function index() {}
+
+    public function roll() {}
 
 }
