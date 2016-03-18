@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Mar 17, 2016 at 11:16 PM
+-- Generation Time: Mar 18, 2016 at 11:37 PM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -35,14 +35,14 @@ CREATE TABLE `absences` (
   `state` int(11) NOT NULL,
   `updated` int(11) NOT NULL,
   `denyreason` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `absences`
 --
 
 INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`, `denyreason`) VALUES
-(1, 1, 1457910000, 2, 'Bonjour je suis malade', 2, 1458250209, '');
+(1, 1, 1457910000, 2, 'Bonjour je suis malade', 2, 1458303789, '');
 
 -- --------------------------------------------------------
 
@@ -68,8 +68,8 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `name`, `code`, `teacher`, `group`, `startdate`, `enddate`, `starttime`, `endtime`, `dayofweek`) VALUES
-(1, 'Ingénierie Informatique', 'ALGO', 2, 1, 1443391200, 1465164000, 32400, 43200, 1),
-(2, 'Ingénierie Informatique', 'ALGO', 2, 2, 1443391200, 1465164000, 50400, 61200, 1),
+(1, 'Ingénierie Informatique', 'ALGO', 2, 1, 1443391200, 1465164000, 50400, 61200, 1),
+(2, 'Ingénierie Informatique', 'ALGO', 2, 2, 1443391200, 1465164000, 32400, 43200, 1),
 (3, 'Développement Web', 'DEVWEB', 5, 1, 1443391200, 1465164000, 50400, 61200, 1),
 (4, 'Développement Web', 'DEVWEB', 5, 2, 1443391200, 1465164000, 32400, 43200, 1),
 (5, 'Design Initiatique', 'DESIGN', 6, 1, 1443564000, 1465336800, 32400, 43200, 3),
@@ -150,7 +150,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `permission`, `group`) VALUES
-(1, 'jclerc', 'sha256:UTcEs4Kbcs144wfJf1D4actS8/0mopms:2cd35396f20415544a20481ce130c1892f410ad65794efba10baaa81e8c2ff1c', 'jonathan.clerc@hetic.net', 'Jonathan', 'Clerc', 1, 2),
+(1, 'jclerc', 'sha256:FHFTZ6pehk/wtVkHb/inhRY1kQWLARlX:e1c07c77871272756a35ab3b13fe5da4fd057ca96e8c48adcb0ee13d3b42a6ed', 'jonathan.clerc@hetic.net', 'Jonathan', 'Clerc', 1, 2),
 (2, 'flepoivre', 'sha256:ZwaH9Tyw6iPfPWAhRbgrmkXFUYCAXgBd:987e7d5c42d783cc3fcf8e4e513a53eb1cc76ae72cf617add650a100ac3641fe', 'franck.lepoivre@hetic.net', 'Franck', 'Lepoivre', 2, 0),
 (3, 'jpineau', 'sha256:1M7Htx008F4A0edaQXX3chWQRa3MwQ62:abc808fc3943645d4b41d96f00dae328f2bc862f227c09dbbefb93ed001e6ac4', 'pineau@hetic.net', 'Johanna', 'Pineau', 3, 0),
 (4, 'bbergaglia', 'sha256:hKhgSFdZbMXGBKB1XVJ0sln8b9mIRR4M:a7f2ad6434c713e4ecbf744108d5240ccbdd936ee36caa103dfe08a4b76bb91d', 'bastien.bergaglia@hetic.net', 'Bastien', 'Bergaglia', 1, 2),
@@ -307,7 +307,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absences`
 --
 ALTER TABLE `absences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `courses`
 --
