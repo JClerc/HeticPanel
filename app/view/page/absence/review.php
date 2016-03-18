@@ -14,17 +14,20 @@
     </div>
 
     <div class="calendar dashbox">
-        <p>
+        <p class="absence-infos">
             <?= $data['information'] ?>
         </p>
 
         <?php if ($data['form']): ?>
-            <form method="post" enctype="multipart/form-data">
-                <textarea name="reason" id="" cols="30" rows="10" placeholder="Raison"><?= $data['currentReason'] ?></textarea>
+            <h3>Justifier cette absence</h3>
+            <form method="post" class="absence-form" enctype="multipart/form-data">
+                <textarea name="reason" id="" class="absence-reason" placeholder="Raison"><?= $data['currentReason'] ?></textarea>
                 <input type="file" name="proof">
-                <button type="submit">Valider</button>
+                <button class="logout absence-submit" type="submit">Envoyer la justification</button>
             </form>
         <?php endif; ?>
+
+        <div class="clear"></div>
     </div>
 
 </div>
