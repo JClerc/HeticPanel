@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Mar 18, 2016 at 11:37 PM
+-- Generation Time: Mar 19, 2016 at 01:52 AM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -35,14 +35,16 @@ CREATE TABLE `absences` (
   `state` int(11) NOT NULL,
   `updated` int(11) NOT NULL,
   `denyreason` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `absences`
 --
 
 INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`, `denyreason`) VALUES
-(1, 1, 1457910000, 2, 'Bonjour je suis malade', 2, 1458303789, '');
+(10, 1, 1457910000, 2, 'Je suis malade', 2, 1457947081, ''),
+(11, 4, 1457910000, 2, 'Dsl', 2, 1457947081, ''),
+(12, 82, 1457910000, 2, '', 0, 1457947081, '');
 
 -- --------------------------------------------------------
 
@@ -307,7 +309,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absences`
 --
 ALTER TABLE `absences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `courses`
 --
