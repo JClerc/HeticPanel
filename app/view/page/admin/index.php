@@ -3,8 +3,29 @@
 
 <?php $data['flash']->display() ?>
 
-Modifier:<br>
-<a href="/admin/promotion/">Gérer les promotions</a><br>
-<a href="/admin/group/">Gérer les groupes</a><br>
-<a href="/admin/course/">Gérer les cours</a><br>
-<a href="/admin/user/">Gérer les utilisateurs</a><br>
+<h3 class="title">
+    Bonjour 
+    <span><?= substr($data['user']->get('firstname'), 0, 1); ?>. <?= strtoupper($data['user']->get('lastname')); ?></span>
+</h3>
+
+<section class="container">
+    <a href="/admin/promotion" class="dashbox sided">
+        <h3 class="box-title">Gérer les promotions</h3>
+    </a>
+
+    <a href="/admin/group" class="dashbox sided">
+        <h3 class="box-title">Gérer les groupes</h3>
+    </a>
+
+    <div class="clear"></div>
+</section>
+
+<section class="container" style="margin-top: 20px">
+    <a href="/admin/course" class="dashbox sided">
+        <h3 class="box-title">Gérer les cours</h3>
+    </a>
+
+    <a href="/admin/user" class="dashbox sided">
+        <h3 class="box-title">Gérer les utilisateurs</h3>
+    </a>
+</section>
