@@ -27,7 +27,26 @@
                 <?php endforeach; ?>
             </div>
         </form>
-    </div>
+    
+        <div class="tuto">
+            <div class="item">
+                <div class="icon"></div>
+                <div class="desc">
+                    <h3>ESPACE</h3>
+                    <p>Elèvre présent</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="icon"></div>
+                <div class="desc">
+                    <h3>ENTRER</h3>
+                    <p>Elèvre absent</p>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
 </section>
 
 <script>

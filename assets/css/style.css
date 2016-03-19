@@ -542,12 +542,41 @@ html, body {
 }
 
 .roll-students .roll-student.missing {
-    color: #e3896c;
+    color: #e3896c !important;
     text-decoration: line-through;
 }
 
 .roll-students .roll-student .hidden {
     display: none;
+}
+
+.tuto {
+    width: 400px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tuto .item {
+    float: left;
+    width: 150px;
+    margin-left: 50px;
+}
+
+.tuto .item .icon {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    background: #e3896c;
+}
+
+.tuto .item h3 {
+    margin: 0;
+}
+
+.tuto .item p {
+    margin-top: 0;
 }
 
 .course-title,
