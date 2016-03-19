@@ -33,7 +33,7 @@
                 <div class="icon"></div>
                 <div class="desc">
                     <h3>ESPACE</h3>
-                    <p>Elèvre présent</p>
+                    <p>Elève présent</p>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                 <div class="icon"></div>
                 <div class="desc">
                     <h3>ENTRER</h3>
-                    <p>Elèvre absent</p>
+                    <p>Elève absent</p>
                 </div>
             </div>
 
