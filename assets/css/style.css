@@ -272,6 +272,10 @@ html, body {
     margin-bottom: 60px;
 }
 
+.title span {
+    color: #5ebd9f;
+}
+
 .dashbox {
     background: #fff;
     box-sizing: border-box;
@@ -279,8 +283,31 @@ html, body {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
+.dashbox.sided {
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(50% - 20px);
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.dashbox.sided:hover {
+    background: #F3F3F3;
+}
+
 .dashbox.nopadding {
     padding: 0;
+}
+
+.box-title {
+    margin-top: 0;
+    font-size: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: rgba(0,0,0,0.8);
 }
 
 .calendar {

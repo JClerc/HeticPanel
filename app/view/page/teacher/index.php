@@ -3,6 +3,17 @@
 
 <?php $data['flash']->display() ?>
 
-Choisis une activité:<br>
-<a href="/teacher/roll">Faire l'appel</a><br>
-<a href="/teacher/course">Liste des présents</a><br>
+<h3 class="title">
+    Bonjour 
+    <span><?= substr($data['user']->get('firstname'), 0, 1); ?>. <?= strtoupper($data['user']->get('lastname')); ?></span>
+</h3>
+
+<section class="container">
+    <a href="/teacher/roll" class="dashbox sided">
+        <h3 class="box-title">Faire l'appel</h3>
+    </a>
+
+    <a href="/teacher/course" class="dashbox sided">
+        <h3 class="box-title">Liste des présents</h3>
+    </a>
+</section>
