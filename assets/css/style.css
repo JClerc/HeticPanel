@@ -519,6 +519,37 @@ html, body {
     margin-right: 30px;
 }
 
+.roll-students {
+    height: 150px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.roll-students .roll-student {
+    text-align: center;
+    font-size: 30px;
+    color: #cacaca;
+    height: 50px;
+    transition-duration: 200ms;
+}
+
+.roll-students .roll-student.current {
+    color: #000;
+    font-size: 35px;
+}
+
+.roll-students .roll-student.missing {
+    color: #e3896c;
+    text-decoration: line-through;
+}
+
+.roll-students .roll-student .hidden {
+    display: none;
+}
+
 .course-title,
 .course-subtitle {
     text-align: center;
