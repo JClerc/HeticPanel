@@ -283,6 +283,11 @@ html, body {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
+.dashbox.dashbox-students {
+    width: 80%;
+    margin-left: 10%;
+}
+
 .dashbox.sided {
     float: left;
     margin-left: 10px;
@@ -474,5 +479,71 @@ html, body {
 }
 
 .absence-submit:hover {
+    background: #C36B4C;
+}
+
+.students-form {
+    margin-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+}
+
+.students {
+    flex: 1;
+}
+
+.students .student {
+    height: 30px;
+}
+
+.students .student .name {
+    float: left;
+}
+
+.students .student .hidden {
+    float: right;
+    margin-right: 30px;
+}
+
+.course-title,
+.course-subtitle {
+    text-align: center;
+}
+
+.course-title {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #e58763;
+}
+
+.course-subtitle {
+    font-size: 11px;
+    margin-top: 0;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.students-submit-cont {
+    width: 100%;
+    text-align: center;
+}
+
+.students-submit {
+    text-decoration: none;
+    color: white;
+    background: #E68664;
+    padding: 13px 40px;
+    border-radius: 4px;
+    border: 0;
+    transition: all .3s;
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.students-submit:hover {
     background: #C36B4C;
 }

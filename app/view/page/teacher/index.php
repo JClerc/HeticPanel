@@ -14,6 +14,6 @@
     </a>
 
     <a href="/teacher/course" class="dashbox sided">
-        <h3 class="box-title">Liste des présents</h3>
+        <h3 class="box-title">Liste des absents</h3>
     </a>
 </section>
