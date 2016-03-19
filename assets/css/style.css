@@ -433,6 +433,23 @@ html, body {
     background: #E68664;
 }
 
+.absence-list .item {
+    height: 90px;
+}
+
+.absence-list .item h3 {
+    margin: 0;
+}
+
+.absence-list .item p {
+    margin-top: 5px;
+}
+
+.absence-list .item a {
+    color: #8F9193;
+    text-decoration: none;
+}
+
 .calendar-control {
     width: 120px;
     height: 25px;
