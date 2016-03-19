@@ -35,9 +35,11 @@
                     </div>
                 </div>
              -->
-            <?php for ($offset = 0; $offset < 3; $offset++): ?>
+            <?php for ($offset = 1; $offset <= 3; $offset++): ?>
                 <div class="students">
-                    <?php for ($i = $count * $offset; $i <= ($count * ($offset + 1)) - $offset; $i++): 
+                    <?php 
+                    $last = ($offset == 3) ? $offset-1 : 1;
+                    for ($i = $count * ($offset-1); $i <= ($count * $offset) - $last; $i++): 
                         $student = $data['students'][$i];
                     ?>
                         <div class="student <?= $student['class'] ?>" data-index="<?= $student['index'] ?>">
