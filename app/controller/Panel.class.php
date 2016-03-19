@@ -49,6 +49,36 @@ class PanelController extends Controller {
     
     public function course() {
 
+        $this->selectCourse(function ($promotion, $group, $course, $teacher, $date) {
+            $this->processStudents($teacher, $group, $date);
+        });
+
+    }
+    
+    public function cancel() {
+        
+        $this->selectCourse(function ($promotion, $group, $course, $teacher, $date) {
+            
+            if (POST and isset($_POST['cancel']) and $_POST['cancel'] === 'true') {
+                $this->set('cancel', true);
+                $absences = Absence::make()->ofCourseAt($course, $date);
+                foreach ($absences as $absence) {
+                    $absence->delete();
+                }
+            } else {
+                $this->set('cancel', false);
+            }
+
+        });
+
+    }
+
+    public function admin() {
+        
+    }
+
+    private function selectCourse($callback) {
+
         $selected = [
             'promotion' => false,
             'group'     => false,
@@ -132,16 +162,12 @@ class PanelController extends Controller {
                                     $relativeDate['next'] = $dateAfter;
                                 }
 
-                                // if ($endDate->isAfter($dateAfter)) {
-                                    // $relativeDate['next'] = $dateAfter;
-                                // }
-
-
                                 $selected['date'] = $date;
-
                                 $teacher = $course->getTeacher();
 
-                                $this->processStudents($teacher, $group, $date);
+                                if (is_callable($callback)) {
+                                    $callback($promotion, $group, $course, $teacher, $date);
+                                }
 
                             }
                         }
@@ -155,12 +181,7 @@ class PanelController extends Controller {
         $this->set('selected', $selected);
         $this->set('relative-date', $relativeDate);
 
-
     }
-    
-    public function cancel() {}
-
-    public function admin() {}
 
     private function processStudents(User $teacher, Group $group, Date $date) {
 
