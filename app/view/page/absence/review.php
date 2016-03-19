@@ -12,22 +12,32 @@
             <?= $data['course']->get('name') ?>
         </a>
     </div>
+    
+    <form method="post" class="absence-form" enctype="multipart/form-data">
+        <div class="calendar">
+            <div class="dashbox">
+                <p class="absence-infos">
+                    <?= $data['information'] ?>
+                </p>
 
-    <div class="calendar dashbox">
-        <p class="absence-infos">
-            <?= $data['information'] ?>
-        </p>
+                <?php if ($data['form']): ?>
+                    <h3>Motif de l'absence</h3>
+                    <textarea name="reason" id="" class="absence-reason" placeholder="Raison"><?= $data['currentReason'] ?></textarea>
+                <?php endif; ?>
 
-        <?php if ($data['form']): ?>
-            <h3>Justifier cette absence</h3>
-            <form method="post" class="absence-form" enctype="multipart/form-data">
-                <textarea name="reason" id="" class="absence-reason" placeholder="Raison"><?= $data['currentReason'] ?></textarea>
-                <input type="file" name="proof">
-                <button class="logout absence-submit" type="submit">Envoyer la justification</button>
-            </form>
-        <?php endif; ?>
+                <div class="clear"></div>
+            </div>
+            
+            <?php if ($data['form']): ?>
+                <div class="dashbox dashbox-file">
+                    <input type="file" name="proof">
+                </div>
 
-        <div class="clear"></div>
-    </div>
+                <center>
+                    <button class="logout absence-submit" type="submit">Envoyer la justification</button>
+                </center>
+            <?php endif; ?>
+        </div>
+    </form>
 
 </div>
