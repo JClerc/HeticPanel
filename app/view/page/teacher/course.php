@@ -1,11 +1,8 @@
 
-<!-- ================================================= -->
-<!-- Aucun JS a faire pour cette page, juste de l'inté -->
-<!-- ================================================= -->
-
 <?php $this->view('module/includes/navbar') ?>
 
 <?php $data['flash']->display() ?>
+
 <?php
     $count = ceil(count($data['students']) / 3);
 ?>
@@ -13,43 +10,40 @@
 <h3 class="title">Liste des absents</h3>
 
 <section class="container">
-    <div class="dashbox">
-        <center>
-        <h3 class="course-title">Cours du <?= date('d/m/Y') ?></h3>
-        </center>
-        
-        <div class="students-form">
-            <!--
-                // Exemple:
+    <form method="post">
+        <div class="dashbox dashbox-students">
+            <h3 class="course-title">Cours du <?= date('d/m/Y') ?></h3>
+            <h4 class="course-subtitle">Cochez uniquement les absences</h4>
 
-                <div class="student">
-                    <label for="student-24" class="name">
-                        Ronan Fourreau 
-                    </label>
-                    <div class="checkbox">
-                        <input id="student-24" type="checkbox" value="76" name="absences[]" >
-                    </div>
-                </div>
-             -->
+            <div class="students-form">
 
-            <?php for ($offset = 1; $offset <= 3; $offset++): ?>
-                <div class="students">
-                    <?php 
-                    $last = ($offset == 3) ? $offset-1 : 1;
-                    for ($i = $count * ($offset-1); $i <= ($count * $offset) - $last; $i++): 
-                        $student = $data['students'][$i];
-                    ?>
-                        <div class="student <?= $student['class'] ?>" data-index="<?= $student['index'] ?>">
-                            <label for="<?= $student['user']->getId() ?>" class="name <?= $student['absent'] ? 'missing' : '' ?>">
-                                <?= $student['user']->get('firstname') ?> <?= $student['user']->get('lastname') ?> 
-                            </label>
-                            <div class="hidden">
-                                <input id="<?= $student['index'] ?>" type="checkbox" value="<?= $student['user']->getId() ?>" name="absences[]" <?= $student['absent'] ? 'checked' : '' ?> disabled>
+                <?php for ($offset = 1; $offset <= 3; $offset++): ?>
+                    <div class="students">
+                        <?php 
+                        $last = ($offset == 3) ? $offset-1 : 1;
+                        for ($i = $count * ($offset-1); $i <= ($count * $offset) - $last; $i++): 
+                            $student = $data['students'][$i];
+                        ?>
+                            <div class="student <?= $student['class'] ?>" data-index="<?= $student['index'] ?>">
+                                <label for="<?= $student['user']->getId() ?>" class="name">
+                                    <?= $student['user']->get('firstname') ?> <?= $student['user']->get('lastname') ?> 
+                                </label>
+                                <div class="hidden">
+                                    <input type="checkbox" id="<?= $student['user']->getId() ?>" value="<?= $student['user']->getId() ?>" name="absences[]" <?= $student['absent'] ? 'checked' : '' ?>>
+                                </div>
                             </div>
-                        </div>
-                    <?php endfor; ?>
-                </div>
-            <?php endfor; ?>
+                        <?php endfor; ?>
+                    </div>
+                <?php endfor; ?>
+            </div>
+            
         </div>
-    </div>
+
+        <div class="students-submit-cont">
+            <button class="students-submit" type="submit">Envoyer</button>
+        </div>
+
+    </form>
+
+    <br><br>
 </section>
