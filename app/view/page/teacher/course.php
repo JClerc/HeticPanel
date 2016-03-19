@@ -38,7 +38,7 @@
                         $student = $data['students'][$i];
                     ?>
                         <div class="student <?= $student['class'] ?>" data-index="<?= $student['index'] ?>">
-                            <label for="<?= $student['user']->getId() ?>" class="name">
+                            <label for="<?= $student['user']->getId() ?>" class="name <?= $student['absent'] ? 'missing' : '' ?>">
                                 <?= $student['user']->get('firstname') ?> <?= $student['user']->get('lastname') ?> 
                             </label>
                             <div class="hidden">

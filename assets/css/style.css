@@ -499,6 +499,13 @@ html, body {
 
 .students .student .name {
     float: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.students .student .name.missing {
+    background: #e58763;
+    font-weight: bold;
 }
 
 .students .student .hidden {
