@@ -9,7 +9,7 @@
 
 <section class="container">
     <div class="dashbox dashbox-students">
-        <h3 class="course-title">Cours du <?= date('d/m/Y') ?></h3>
+        <h3 class="course-title">Cours du <?= $data['date']->getDay() ?> <?= $data['date']->getMonthName() ?></h3>
 
         <!-- Formulaire a envoyer une fois l'appel terminé -->
         <!-- -> $(form).submit() -->

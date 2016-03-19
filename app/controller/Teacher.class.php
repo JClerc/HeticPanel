@@ -10,6 +10,7 @@ class TeacherController extends Controller {
 
     public function roll($request) {
         $result = $this->processStudents();
+        $this->set('date', new Date);
         if (POST) {
             if ($result) {
                 $this->flash->set(true, 'Feuille d\'appel sauvegardée !');
