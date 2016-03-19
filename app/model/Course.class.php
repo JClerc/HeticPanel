@@ -30,12 +30,22 @@ class Course extends DataModel {
         ]));
     }
 
+    public function fromTeacherGroupAt(User $user, Group $group, Date $date = null) {
+        if (!isset($date)) $date = new Date;
+
+        $this->fromEntry($this->database->get($this->getTable(), 'teacher = ? AND startdate <= ? AND enddate >= ? AND dayofweek = ? AND `group` = ?', [
+            $user->getId(),
+            $date->getTime(),
+            $date->getTime(),
+            $date->getDayOfWeek(),
+            $group->getId(),
+        ]));
+    }
+
     public function fromTeacherAtTime(User $user, Date $date = null, $time = TIME) {
         if (!isset($date)) $date = new Date;
         if (!isset($time)) $time = TIME;
         $time = $time % 86400;
-
-        $r = $this->database->get($this->getTable());
 
         $this->fromEntry($this->database->get($this->getTable(), 'teacher = ? AND startdate <= ? AND enddate >= ? AND dayofweek = ? AND starttime <= ? AND endtime >= ?', [
             $user->getId(),
@@ -51,6 +61,12 @@ class Course extends DataModel {
         $group = Factory::create(new Group);
         $group->fromId($this->get('group'));
         return $group;
+    }
+
+    public function getTeacher() {
+        $teacher = Factory::create(new User);
+        $teacher->fromId($this->get('teacher'));
+        return $teacher;
     }
 
     public function getStudents() {

@@ -8,6 +8,10 @@ class Date extends Model {
         $this->fromTime(TIME);
     }
 
+    public function exists() {
+        return $this->time > 0;
+    }
+
     public function fromTime($time) {
         $date = date('d-m-Y', $time);
         $this->time = strtotime($date);
@@ -17,15 +21,15 @@ class Date extends Model {
         return $this->time;
     }
 
-    public function getBefore() {
+    public function getBefore($offset = 1) {
         $date = new Date;
-        $date->fromTime($this->getTime() - 86400);
+        $date->fromTime($this->getTime() - 86400 * $offset);
         return $date;
     }
 
-    public function getAfter() {
+    public function getAfter($offset = 1) {
         $date = new Date;
-        $date->fromTime($this->getTime() + 86400);
+        $date->fromTime($this->getTime() + 86400 * $offset);
         return $date;
     }
 
@@ -57,6 +61,14 @@ class Date extends Model {
 
     public function isBefore(Date $date) {
         return $this->time < $date->getTime();        
+    }
+
+    public function isAfterOrEquals(Date $date) {
+        return $this->time >= $date->getTime();
+    }
+
+    public function isBeforeOrEquals(Date $date) {
+        return $this->time <= $date->getTime();        
     }
 
     public function equals(Date $date) {

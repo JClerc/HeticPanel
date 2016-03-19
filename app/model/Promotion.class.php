@@ -1,6 +1,6 @@
 <?php
 
-class Promotion extends Model {
+class Promotion extends DataModel {
 
     protected $properties = [
         'year'   => 0,
@@ -21,6 +21,10 @@ class Promotion extends Model {
             }
         }
         return false;
+    }
+
+    public function getYear() {
+        return $this->get('year');
     }
 
     public function getGroup($id) {

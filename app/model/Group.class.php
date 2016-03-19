@@ -18,6 +18,14 @@ class Group extends DataModel {
         ]);
     }
 
+    public function getIndex() {
+        return $this->get('index');
+    }
+
+    public function getPromotion() {
+        return Promotion::make($this->get('promotion'));
+    }
+
     public function getStudent($id = null) {
         return $this->getCollection(['User', 'students'], $id);
     }

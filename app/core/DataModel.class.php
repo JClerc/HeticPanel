@@ -12,7 +12,7 @@ abstract class DataModel extends Model {
     public static function make($id = null) {
         $class = get_called_class();
         $obj = Factory::create(new $class);
-        if (is_int($id)) $obj->fromId($id);
+        if (is_int($id) or ctype_digit($id)) $obj->fromId($id);
         return $obj;
     }
 
@@ -68,6 +68,8 @@ abstract class DataModel extends Model {
         if (is_array($this->properties[$key])) {
             if (is_array($value)) {
                 $this->properties[$key] = $value;
+            } else if (empty($value)) {
+                $this->properties[$key] = [];
             } else {
                 $this->properties[$key] = explode(',', $value);
             }
@@ -109,7 +111,7 @@ abstract class DataModel extends Model {
         }
     }
 
-    public function find($where, $args = null) {
+    public function find($where = null, $args = null) {
         $list = $this->database->all($this->getTable(), $where, $args);
         $class = get_called_class();
         $coll = [];
