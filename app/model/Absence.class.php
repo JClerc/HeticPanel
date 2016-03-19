@@ -8,6 +8,9 @@ class Absence extends DataModel {
     const STATE_DENIED   = 3;
     const STATE_ACCEPTED = 4;
 
+    const PHP_PROOF_DIR = APP . 'upload/';
+    const HTTP_PROOF_DIR = HTTP_ROOT . 'app/upload/';
+
     protected $properties = [
         'student'    => 0,
         'date'       => 0,
@@ -81,6 +84,15 @@ class Absence extends DataModel {
             'updated'    => TIME,
             'denyreason' => ''
         ]);
+    }
+
+    public function getImagePath() {
+        $img = self::PHP_PROOF_DIR . $this->getId() . '.jpg';
+        return is_file($img) ? $img : false;
+    }
+
+    public function getImageSrc() {
+        return $this->getImagePath() ? self::HTTP_PROOF_DIR . $this->getId() . '.jpg' : false;
     }
 
     public function getDate() {

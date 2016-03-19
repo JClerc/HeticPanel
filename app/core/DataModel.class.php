@@ -28,9 +28,6 @@ abstract class DataModel extends Model {
 
         if (count($rows) === 1) {
             return $this->fromEntry($rows[0]);
-            // $this->set($rows[0]);
-            // $this->id = intval($rows[0]['id']);
-            // return true;
         }
 
         return false;
@@ -110,6 +107,18 @@ abstract class DataModel extends Model {
             ]);
             $this->id = 0;
         }
+    }
+
+    public function find($where, $args = null) {
+        $list = $this->database->all($this->getTable(), $where, $args);
+        $class = get_called_class();
+        $coll = [];
+        foreach ($list as $entry) {
+            $obj = Factory::create(new $class);
+            $obj->fromEntry($entry);
+            $coll[] = $obj;
+        }
+        return $coll;
     }
 
     protected function getTable() {

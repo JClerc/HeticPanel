@@ -1,7 +1,7 @@
 
 /* 
  * ------------------------------------
- *               SCRIPT
+ *               BASE
  * ------------------------------------
  * 
  */
@@ -17,6 +17,13 @@ setTimeout(function () {
     $('.alert').slideUp();
 
 }, 3000);
+
+/* 
+ * ------------------------------------
+ *              CALENDAR
+ * ------------------------------------
+ * 
+ */
 
 App.calendar = {};
 
@@ -88,3 +95,37 @@ App.calendar.courseList = function (courses, absences, date) {
     });
     return false;
 };
+
+/* 
+ * ------------------------------------
+ *               PANEL
+ * ------------------------------------
+ * 
+ */
+
+App.panel = {};
+
+App.panel.justify = function (entry) {
+    var $entry = $(entry),
+        id = ~~$entry.data('id'),
+        img = $entry.data('img'),
+        name = $entry.find('.name').text(),
+        reason = $entry.find('.reason').text();
+
+    console.log(name);
+
+    var $view = $('.absence-view');
+    $view.find('.no-select').hide();
+    $view.find('.details').show();
+
+    $view.find('.name').text(name);
+    $view.find('.reason').text(reason);
+
+    if (img.length > 10) {
+        $view.find('.img').empty().append($('<img>').attr('src', img));
+    }
+
+    $view.find('.entry-id').val(id);
+
+};
+

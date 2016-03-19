@@ -37,12 +37,16 @@ class AbsenceController extends Controller {
                         $information = 'Un justificatif a déjà été envoyé. Vous pouvez le modifier en renvoyant le formulaire.';
                         $currentReason = $absence->get('reason');
                     } else if ($state === Absence::STATE_DENIED) {
-                        $form = false;
-                        $information = 'Votre justificatif a été refusé.';
+                        $form = true;
+                        $information = 'Votre dernier justificatif a été refusé.';
                     } else if ($state === Absence::STATE_ACCEPTED) {
                         $form = false;
                         $information = 'Votre justificatif a été accepté.';
                     }
+
+                    $this->set('currentReason', e($currentReason));
+                    $this->set('information', $information);
+                    $this->set('form', $form);
 
                     if (POST) {
 
@@ -51,7 +55,7 @@ class AbsenceController extends Controller {
                             return;
                         }
 
-                        $saveTo = APP . 'upload/' . $absence->getId();
+                        $saveTo = Absence::PHP_PROOF_DIR . $absence->getId();
 
                         if (empty($_FILES['proof']) or $_FILES['proof']['size'] === 0) {
 
@@ -71,16 +75,13 @@ class AbsenceController extends Controller {
 
                         }
 
-                        $absence->addReason($_POST['reason']);
                         $currentReason = $_POST['reason'];
+                        $absence->addReason($currentReason);
+                        $this->set('currentReason', e($currentReason));
                         
                         $this->flash->set(true, 'Justification envoyée !');
 
                     }
-
-                    $this->set('currentReason', e($currentReason));
-                    $this->set('information', $information);
-                    $this->set('form', $form);
 
                     return;
 
