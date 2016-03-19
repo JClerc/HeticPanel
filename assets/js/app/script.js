@@ -121,8 +121,10 @@ App.panel.justify = function (entry) {
     $view.find('.name').text(name);
     $view.find('.reason').text(reason);
 
+    $view.find('.img').empty();
+
     if (img.length > 10) {
-        $view.find('.img').empty().append($('<img>').attr('src', img));
+        $view.find('.img').append($('<img>').attr('src', img));
     }
 
     $view.find('.entry-id').val(id);
