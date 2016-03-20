@@ -8,23 +8,19 @@
     <div class="course-list">
         <div class="dashbox select-box select-promotion nopadding">
             <div class="label">
-                <?php if ($data['selected']['promotion']): ?>
-                    <div class="item missing">P<?= $data['selected']['promotion']->getYear() ?></div>
-                <?php else: ?>
-                    <div class="choices">
-                        <form method="post">
-                            <input type="hidden" name="promotion" value="">
-                            <?php foreach ($data['promotions'] as $promotion): ?>
-                                <div class="item 
-                                    <?php if ($data['selected']['promotion'] && $data['selected']['promotion']->getYear() == $promotion->getYear()): ?>missing<?php endif; ?>"
-                                    onclick="$('[name=promotion]').val('<?= $promotion->getId(); ?>');$(this).parent().submit();"
-                                >
-                                    P<?= $promotion->getYear(); ?>
-                                </div>
-                            <?php endforeach; ?>
-                        </form>        
-                    </div>
-                <?php endif; ?>
+                <div class="choices">
+                    <form method="post">
+                        <input type="hidden" name="promotion" value="">
+                        <?php foreach ($data['promotions'] as $promotion): ?>
+                            <div class="item 
+                                <?php if ($data['selected']['promotion'] && $data['selected']['promotion']->getYear() == $promotion->getYear()): ?>missing<?php endif; ?>"
+                                onclick="$('[name=promotion]').val('<?= $promotion->getId(); ?>');$(this).parent().submit();"
+                            >
+                                P<?= $promotion->getYear(); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </form>        
+                </div>
             </div>
         </div>
         <br>
