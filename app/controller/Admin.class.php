@@ -298,9 +298,9 @@ class AdminController extends Controller {
         $courses = [];
 
         foreach ($promotions as $promotion) {
-            $subGroups = $promotion->getGroups();
+            $subGroups = Group::sort($promotion->getGroups());
             foreach ($subGroups as $subGroup) {
-                $courses[ 'P' . $promotion->getYear() . ' - G' . $subGroup->getIndex() ] = $subGroup->getCourses();
+                $courses[ 'P' . $promotion->getYear() . ' - G' . $subGroup->getIndex() ] = Course::sort($subGroup->getCourses());
             }
         }
 

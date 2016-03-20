@@ -138,7 +138,11 @@ class Course extends DataModel {
     }
 
     public static function sort($list) {
-        usort($list, function ($a, $b) { return $a->get('dayofweek') - $b->get('dayofweek'); });
+        usort($list, function ($a, $b) { 
+            $diff = $a->get('dayofweek') - $b->get('dayofweek');
+            if ($diff) return $diff;
+            return $a->get('starttime') - $b->get('starttime');
+        });
         return $list;
     }
 
