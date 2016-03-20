@@ -28,10 +28,11 @@
                     <select name="edit" style="width: 100%">
                         <option value="0">Sélectionnez un groupe</option>
                         <?php foreach ($data['groups'] as $title => $groups): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($groups as $group): ?>
                                 <option value="<?= $group->getId() ?>" <?= (isset($data['values']) and $data['values']['group']->getId() === $group->getId()) ? 'selected' : '' ?>>G<?= $group->getIndex() ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -55,10 +56,11 @@
                     <select name="delete">
                         <option value="0">Sélectionnez un groupe</option>
                         <?php foreach ($data['groups'] as $title => $groups): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($groups as $group): ?>
                                 <option value="<?= $group->getId() ?>">G<?= $group->getIndex() ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -106,10 +108,11 @@
                 <select name="edit" style="display: none;">
                     <option value="0">Sélectionnez un groupe</option>
                     <?php foreach ($data['groups'] as $title => $groups): ?>
-                        <optgroup label="<?= $title ?>"></optgroup>
+                        <optgroup label="<?= $title ?>">
                         <?php foreach ($groups as $group): ?>
                             <option value="<?= $group->getId() ?>" <?= (isset($data['values']) and $data['values']['group']->getId() === $group->getId()) ? 'selected' : '' ?>>G<?= $group->getIndex() ?></option>
                         <?php endforeach; ?>
+                        </optgroup>
                     <?php endforeach; ?>
                 </select>
 

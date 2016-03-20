@@ -27,10 +27,11 @@
                     <select name="edit" style="width: 100%;">
                         <option value="0">Sélectionnez un cours</option>
                         <?php foreach ($data['courses'] as $title => $courses): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($courses as $course): ?>
                                 <option value="<?= $course->getId() ?>" <?= (isset($data['values']) and $data['values']['course']->getId() === $course->getId()) ? 'selected' : '' ?>><?= $course->get('name') ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -56,10 +57,11 @@
                     <select name="delete" style="width: 100%">
                         <option value="0">Sélectionnez un cours</option>
                         <?php foreach ($data['courses'] as $title => $courses): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($courses as $course): ?>
                                 <option value="<?= $course->getId() ?>"><?= $course->get('name') ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -91,8 +93,12 @@
 
                     <label>Professeur</label><br>
                     <select name="teacher" class="menu-select">
-                        <?php foreach ($data['teachers'] as $teacher): ?>
-                            <option value="<?= $teacher->getId() ?>"><?= $teacher->get('firstname') ?> <?= $teacher->get('lastname') ?></option>
+                        <?php foreach ($data['teachers'] as $title => $teachers): ?>
+                            <optgroup label="<?= $title ?>">
+                            <?php foreach ($teachers as $teacher): ?>
+                                <option value="<?= $teacher->getId() ?>"><?= $teacher->get('firstname') ?> <?= $teacher->get('lastname') ?></option>
+                            <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                     <br><br>
@@ -102,10 +108,11 @@
                     <label>Groupe</label><br>
                     <select name="group" class="menu-select">
                         <?php foreach ($data['groups'] as $title => $groups): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($groups as $group): ?>
                                 <option value="<?= $group->getId() ?>">G<?= $group->getIndex() ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                     <br><br>
@@ -156,10 +163,11 @@
                 <select name="edit" style="display: none">
                     <option value="0">Sélectionnez un cours</option>
                     <?php foreach ($data['courses'] as $title => $courses): ?>
-                        <optgroup label="<?= $title ?>"></optgroup>
+                        <optgroup label="<?= $title ?>">
                         <?php foreach ($courses as $course): ?>
                             <option value="<?= $course->getId() ?>" <?= (isset($data['values']) and $data['values']['course']->getId() === $course->getId()) ? 'selected' : '' ?>><?= $course->get('name') ?></option>
                         <?php endforeach; ?>
+                        </optgroup>
                     <?php endforeach; ?>
                 </select>
                 
@@ -175,8 +183,12 @@
 
                         <label>Professeur</label><br>
                         <select name="teacher" class="menu-select">
-                            <?php foreach ($data['teachers'] as $teacher): ?>
-                                <option value="<?= $teacher->getId() ?>" <?= $data['values']['teacher'] === $teacher->getId() ? 'selected' : '' ?>><?= $teacher->get('firstname') ?> <?= $teacher->get('lastname') ?></option>
+                            <?php foreach ($data['teachers'] as $title => $teachers): ?>
+                                <optgroup label="<?= $title ?>">
+                                <?php foreach ($teachers as $teacher): ?>
+                                    <option value="<?= $teacher->getId() ?>" <?= $data['values']['teacher'] === $teacher->getId() ? 'selected' : '' ?>><?= $teacher->get('firstname') ?> <?= $teacher->get('lastname') ?></option>
+                                <?php endforeach; ?>
+                                </optgroup>
                             <?php endforeach; ?>
                         </select>
                         <br><br>
@@ -186,10 +198,11 @@
                         <label>Groupe</label><br>
                         <select name="group" class="menu-select">
                             <?php foreach ($data['groups'] as $title => $groups): ?>
-                                <optgroup label="<?= $title ?>"></optgroup>
+                                <optgroup label="<?= $title ?>">
                                 <?php foreach ($groups as $group): ?>
                                     <option value="<?= $group->getId() ?>" <?= $data['values']['group'] === $group->getId() ? 'selected' : '' ?>>G<?= $group->getIndex() ?></option>
                                 <?php endforeach; ?>
+                                </optgroup>
                             <?php endforeach; ?>
                         </select>
                         <br><br>

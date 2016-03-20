@@ -27,10 +27,11 @@
                     <select name="edit">
                         <option value="0">Sélectionnez un utilisateur</option>
                         <?php foreach ($data['users'] as $title => $users): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($users as $user): ?>
                                 <option value="<?= $user->getId() ?>" <?= (isset($data['values']) and $data['values']['user']->getId() === $user->getId()) ? 'selected' : '' ?>><?= $user->get('lastname') ?> <?= $user->get('firstname') ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -56,10 +57,11 @@
                     <select name="delete">
                         <option value="0">Sélectionnez un utilisateur</option>
                         <?php foreach ($data['users'] as $title => $users): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($users as $user): ?>
                                 <option value="<?= $user->getId() ?>" <?= (isset($data['values']) and $data['values']['user']->getId() === $user->getId()) ? 'selected' : '' ?>><?= $user->get('lastname') ?> <?= $user->get('firstname') ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -113,10 +115,11 @@
                     <select name="group" class="menu-select">
                         <option value="0">Aucun groupe</option>
                         <?php foreach ($data['groups'] as $title => $groups): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($groups as $group): ?>
                                 <option value="<?= $group->getId() ?>">G<?= $group->getIndex() ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -134,10 +137,11 @@
             <select name="edit" style="display: none;">
                 <option value="0">Sélectionnez un utilisateur</option>
                 <?php foreach ($data['users'] as $title => $users): ?>
-                    <optgroup label="<?= $title ?>"></optgroup>
+                    <optgroup label="<?= $title ?>">
                     <?php foreach ($users as $user): ?>
                         <option value="<?= $user->getId() ?>" <?= (isset($data['values']) and $data['values']['user']->getId() === $user->getId()) ? 'selected' : '' ?>><?= $user->get('lastname') ?> <?= $user->get('firstname') ?></option>
                     <?php endforeach; ?>
+                    </optgroup>
                 <?php endforeach; ?>
             </select>
 
@@ -176,10 +180,11 @@
                     <select name="group" class="menu-select">
                         <option value="0">Aucun groupe</option>
                         <?php foreach ($data['groups'] as $title => $groups): ?>
-                            <optgroup label="<?= $title ?>"></optgroup>
+                            <optgroup label="<?= $title ?>">
                             <?php foreach ($groups as $group): ?>
                                 <option value="<?= $group->getId() ?>" <?= $data['values']['user']->getGroup()->equals($group) ? 'selected' : '' ?>>G<?= $group->getIndex() ?></option>
                             <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
                     </select>
                 </div>

@@ -281,8 +281,14 @@ class AdminController extends Controller {
 
         }
 
-        $teachers = User::make()->find([ 'permission' => User::TEACHER ]);
-        $teachers = User::sort($teachers);
+        $list = User::make()->find([ 'permission' => User::TEACHER ]);
+        $list = User::sort($list);
+
+        $teachers = [];
+        foreach ($list as $teacher) {
+            $teachers[ strtoupper(substr($teacher->get('lastname'), 0, 1)) ][] = $teacher;
+        }
+
         $this->set('teachers', $teachers);
 
         $groupList = Group::sort(Group::make()->find());
