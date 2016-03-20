@@ -37,11 +37,7 @@ class PanelController extends Controller {
 
         }
 
-        $absences = Absence::make()->find(['state' => Absence::STATE_PENDING]);
-
-        usort($absences, function ($a, $b) {
-            return $b->get('updated') - $a->get('updated');
-        });
+        $absences = Absence::sort(Absence::make()->find(['state' => Absence::STATE_PENDING]));
 
         $this->set('absences', $absences);
 
@@ -92,8 +88,7 @@ class PanelController extends Controller {
         ];
 
         // Get promotions
-        $promotions = Promotion::make()->find();
-        uasort($promotions, function ($a, $b) { return $a->getYear() - $b->getYear(); });
+        $promotions = Promotion::sort(Promotion::make()->find());
         $this->set('promotions', $promotions);
 
         if (POST and isset($_POST['promotion'])) {
@@ -102,8 +97,7 @@ class PanelController extends Controller {
             if ($promotion->exists()) {
                 $selected['promotion'] = $promotion;
 
-                $groups = $promotion->getGroups();
-                uasort($groups, function ($a, $b) { return $a->getIndex() - $b->getIndex(); });
+                $groups = Group::sort($promotion->getGroups());
                 $this->set('groups', $groups);
 
                 if (isset($_POST['group'])) {
@@ -112,8 +106,7 @@ class PanelController extends Controller {
                     if ($group->exists()) {
                         $selected['group'] = $group;
 
-                        $courses = $group->getCourses();
-                        uasort($courses, function ($a, $b) { return $a->get('dayofweek') - $b->get('dayofweek'); });
+                        $courses = Course::sort($group->getCourses());
                         $this->set('courses', $courses);
 
                         if (isset($_POST['course'])) {
@@ -194,7 +187,7 @@ class PanelController extends Controller {
             
             if (!empty($students)) {
 
-                $students = User::sortByLastName($students);
+                $students = User::sort($students);
                 $absences = Absence::make()->ofCourseAt($course, $date);
 
                 if (POST and isset($_POST['method']) and $_POST['method'] === 'update') {

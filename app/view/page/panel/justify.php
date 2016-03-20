@@ -23,7 +23,7 @@
                             <?= $absence->getDate()->getDay() ?> <?= $absence->getDate()->getMonthName() ?> <?= $absence->getDate()->getYear() ?> – <?= $absence->getCourse()->get('name') ?>                
                         </p>
                         <div class="hidden reason" style="display: none;">
-                            <?= e($absence->get('reason')) ?>
+                            <?= nl2br(e($absence->get('reason'))) ?>
                         </div>
                     </a>
                 </div>

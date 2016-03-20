@@ -23,6 +23,7 @@ class TeacherController extends Controller {
 
     public function course($request) {
         $result = $this->processStudents();
+        $this->set('date', new Date);
         if (POST) {
             if ($result) {
                 $this->flash->set(true, 'Feuille d\'appel sauvegardée !');
@@ -43,7 +44,7 @@ class TeacherController extends Controller {
             
             if (!empty($students)) {
 
-                $students = User::sortByLastName($students);
+                $students = User::sort($students);
                 $absences = Absence::make()->ofCourseAt($course);
 
                 if (POST) {
@@ -98,6 +99,9 @@ class TeacherController extends Controller {
 
             }
         }
+
+        $this->flash->set(false, 'Vous ne présentez aucun cours en ce moment.');
+        $this->router->go('teacher');
 
         return false;
 

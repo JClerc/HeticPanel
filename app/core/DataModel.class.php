@@ -94,22 +94,31 @@ abstract class DataModel extends Model {
         return isset($this->properties[$key]) ? $this->properties[$key] : null;
     }
 
+    abstract public static function sort($list);
+
     public function save() {
         if ($this->exists()) {
             $this->database->update($this->getTable(), $this->serialize(), [
                 'id' => $this->getId()
             ]);
+            $this->onSave();
         }
     }
 
+    protected function onSave() {}
+
     public function delete() {
         if ($this->exists()) {
+            $id = $this->getId();
+            $this->onDelete();
             $this->database->delete($this->getTable(), [
-                'id' => $this->getId()
+                'id' => $id
             ]);
             $this->id = 0;
         }
     }
+
+    protected function onDelete() {}
 
     public function find($where = null, $args = null) {
         $list = $this->database->all($this->getTable(), $where, $args);
@@ -136,24 +145,27 @@ abstract class DataModel extends Model {
         throw new Exception('Don\'t know in what table "' .$class . '" should be stored');
     }
 
-    protected function serialize() {
-        $properties = $this->properties;
-        foreach ($properties as $key => $value) {
-            if (is_array($value)) {
-                $first = true;
-                $string = '';
-                foreach ($value as $k => $v) {
-                    if ($first) $first = false;
-                    else $string .= ',';
+    protected function serialize($property = null) {
+        if (is_null($property)) {
+            $properties = $this->properties;
+            foreach ($properties as $key => $value) {
+                if (is_array($value)) {
+                    $first = true;
+                    $string = '';
+                    foreach ($value as $k => $v) {
+                        if ($first) $first = false;
+                        else $string .= ',';
 
-                    if ($v instanceof DataModel) $string .= $v->getId();
-                    else $string .= $v;
+                        $string .= $this->serialize($v);
+                    }
+                    $properties[$key] = $string;
                 }
-                $properties[$key] = $string;
-                // $properties[$key] = implode(',', $value);
             }
+            return $properties;
+        } else {
+            if ($property instanceof DataModel) return $property->getId();
+            else return $property;                    
         }
-        return $properties;
     }
 
     protected function insert(array $properties) {

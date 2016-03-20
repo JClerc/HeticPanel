@@ -113,7 +113,7 @@ App.panel.justify = function (entry) {
         id = ~~$entry.data('id'),
         img = $entry.data('img'),
         name = $entry.find('.name').text(),
-        reason = $entry.find('.reason').text();
+        reason = $entry.find('.reason').html();
 
     console.log(name);
 
@@ -122,7 +122,7 @@ App.panel.justify = function (entry) {
     $view.find('.details').show();
 
     $view.find('.name').text(name);
-    $view.find('.reason').text(reason);
+    $view.find('.reason').html(reason);
 
     $view.find('.img').empty();
 

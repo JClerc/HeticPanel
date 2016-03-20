@@ -164,7 +164,7 @@ Class Database extends Model {
                     else $this->query .= ' AND';
                     
                     // key = ?
-                    $this->query .= ' ' . $key . ' = ?';
+                    $this->query .= ' `' . $key . '` = ?';
                     
                     // Because arguments are given at execution
                     $this->args[] = $value;

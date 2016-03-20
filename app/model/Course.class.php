@@ -73,18 +73,73 @@ class Course extends DataModel {
         return $this->getGroup()->getStudents();
     }
 
+    public function validate($name, $code, User $teacher, Group $group, Date $startDate, Date $endDate, $startTime, $endTime, $dayofweek) {
+
+        Validate::min($name, 3, 'Le nom du cours est trop court.');
+        Validate::max($name, 50, 'Le nom du cours est trop long.');
+
+        Validate::notEmpty($code, 'Le code du cours est incorrect.');
+
+        Validate::exists($teacher, 'Le professeur n\'existe pas.');
+
+        Validate::exists($group, 'Le groupe n\'existe pas.');
+
+        Validate::exists($startDate, 'La date est incorrecte.');
+        Validate::exists($endDate, 'La date est incorrecte.');
+
+        Validate::between($startTime, [0, 86400], 'L\'heure est incorrecte.');
+        Validate::between($endTime, [0, 86400], 'L\'heure est incorrecte.');
+
+        Validate::between($dayofweek, [1, 7], 'Le jour est incorrect.');
+
+    }
+
     public function create($name, $code, User $teacher, Group $group, Date $startDate, Date $endDate, $startTime, $endTime, $dayofweek) {
-        return $this->insert([
+
+        $this->validate($name, $code, $teacher, $group, $startDate, $endDate, $startTime, $endTime, $dayofweek);
+
+        $r = $this->insert([
             'name'      => $name,
             'code'      => $code,
             'teacher'   => $teacher,
             'group'     => $group,
-            'startdate' => $start->getTime(),
-            'enddate'   => $end->getTime(),
+            'startdate' => $startDate->getTime(),
+            'enddate'   => $endDate->getTime(),
             'starttime' => $startTime,
             'endtime'   => $endTime,
             'dayofweek' => $dayofweek,
         ]);
+
+        if ($r) {
+            $group = $this->getGroup();
+            $group->addCourse($this);
+            $group->save();
+        }
+
+        return $r;
+
+    }
+
+    protected function onDelete() {
+        $groups = Group::make()->find();
+        foreach ($groups as $group) {
+            if ($group->hasCourse($this)) {
+                $group->removeCourse($this);
+                $group->save();
+            }
+        }
+    }
+
+    protected function onSave() {
+        $this->onDelete();
+        $group = $this->getGroup();
+        $group->addCourse($this);
+        $group->save();
+    }
+
+    public static function sort($list) {
+        usort($list, function ($a, $b) { return $a->get('dayofweek') - $b->get('dayofweek'); });
+        return $list;
     }
 
 }

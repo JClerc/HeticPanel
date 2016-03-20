@@ -12,7 +12,7 @@
 <section class="container">
     <form method="post">
         <div class="dashbox dashbox-students">
-            <h3 class="course-title">Cours du <?= date('d/m/Y') ?></h3>
+            <h3 class="course-title">Cours du <?= $data['date']->getDay() ?> <?= $data['date']->getMonthName() ?></h3>
             <h4 class="course-subtitle">Cochez uniquement les absences</h4>
 
             <div class="students-form">

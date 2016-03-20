@@ -123,19 +123,11 @@ class User extends DataModel {
         $this->save();
     }
 
-    public function delete() {
-        if ($this->exists()) {
-            $this->database->delete($this->getTable(), [
-                'id' => $this->getId()
-            ]);
-
-            $this->removeGroup();
-
-            $this->id = 0;
-        }
+    protected function onDelete() {
+        $this->removeGroup();
     }
 
-    public static function sortByLastName($list) {
+    public static function sort($list) {
         usort($list, function ($a, $b) {
             return strcmp($a->get('lastname'), $b->get('lastname'));
         });

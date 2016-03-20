@@ -8,8 +8,28 @@ class Group extends DataModel {
         'students'  => [],
         'courses'   => [],
     ];
+
+
+    public function validate($index, Promotion $promotion, array $students = [], array $courses = []) {
+
+        Validate::min($index, 1, 'L\'index est incorrect.');
+
+        Validate::exists($promotion, 'La promotion n\'existe pas.');
+
+        Validate::isEmpty(Group::find([
+            'index' => $index,
+            'promotion' => $promotion->getId()
+        ]), 'Un groupe avec cette index existe déjà.');
+
+        Validate::isArray($students, 'La liste des étudiants est incorrecte.');
+        Validate::isArray($courses, 'La liste des cours est incorrecte.');
+
+    }
+
+    public function create($index, Promotion $promotion, array $students = [], array $courses = []) {
+
+        $this->validate($index, $promotion, $students, $courses);
     
-    public function create($index, array $students, array $courses) {
         return $this->insert([
             'index' => $index,
             'promotion' => $promotion,
@@ -64,6 +84,32 @@ class Group extends DataModel {
 
     public function removeCourse($id) {
         return $this->removeCollection('Course', $id);
+    }
+
+    public static function sort($list) {
+        usort($list, function ($a, $b) { 
+            $diff = $a->getPromotion()->getYear() - $b->getPromotion()->getYear();
+            if ($diff) return $diff;
+            return $a->getIndex() - $b->getIndex(); 
+        });
+        return $list;
+    }
+
+    protected function onDelete() {
+        $promotions = Promotion::make()->find();
+        foreach ($promotions as $promotion) {
+            if ($promotion->hasGroup($this)) {
+                $promotion->removeGroup($this);
+                $promotion->save();
+            }
+        }
+    }
+    
+    protected function onSave() {
+        $this->onDelete();
+        $promotion = $this->getPromotion();
+        $promotion->addGroup($this);
+        $promotion->save();
     }
 
 }

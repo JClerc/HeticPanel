@@ -145,4 +145,11 @@ class Absence extends DataModel {
         $this->save();
     }
 
+    public static function sort($list) {
+        usort($list, function ($a, $b) {
+            return $b->get('updated') - $a->get('updated');
+        });
+        return $list;
+    }
+
 }
