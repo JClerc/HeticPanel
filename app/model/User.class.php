@@ -19,16 +19,21 @@ class User extends DataModel {
         'group'      => 0,
     ];
 
-    public function fromUsername($username) {
-        // Find user with username
-        return $this->fromProperty('username', $username);
-    }
+    // public function fromUsername($username) {
+    //     // Find user with username
+    //     return $this->fromProperty('username', $username);
+    // }
 
-    public function create($username, $password, $email, $firstname, $lastname, $permission, $group = null) {
-        // Check if username don't exists
-        $row = $this->database->get('users', [ 'username' => $username ]);
-        if (!empty($row)) {
-            throw new Exception('Le nom d\'utilisateur est déjà pris.');
+    public function validate($username, $password, $email, $firstname, $lastname, $permission, Group $group = null) {
+        if ($username != null) {
+            // Check if username don't exists
+            $row = $this->database->get('users', [ 'username' => $username ]);
+            if (!empty($row)) {
+                throw new Exception('Le nom d\'utilisateur est déjà pris.');
+            }
+
+            if (strlen($username) < 3 or strlen($username) > 40)
+                throw new Exception('Le nom d\'utilisateur est incorrect.');
         }
 
         // Check if email don't exists
@@ -37,9 +42,6 @@ class User extends DataModel {
             throw new Exception('Un compte avec cet email existe déjà.');
 
         // Other verifications
-        if (strlen($username) < 3 or strlen($username) > 40)
-            throw new Exception('Le nom d\'utilisateur est incorrect.');
-
         if (strlen($email) < 3 or strlen($email) > 100 or strpos($email, '@') === false)
             throw new Exception('L\'email est incorrecte.');
 
@@ -55,6 +57,15 @@ class User extends DataModel {
         if ($permission < User::NONE or $permission > User::STAFF)
             throw new Exception('La permission est incorrecte.');
 
+    }
+
+    public function create($username, $password, $email, $firstname, $lastname, $permission, Group $group = null) {
+
+        $this->validate($username, $password, $email, $firstname, $lastname, $permission, $group);
+
+        if (is_null($username))
+            throw new Exception('Le nom d\'utilisateur est incorrect.');
+
         $ret = $this->insert([
             'username'   => $username,
             'password'   => $this->crypt->createHash($password),
@@ -65,7 +76,7 @@ class User extends DataModel {
             'group'      => 0
         ]);
 
-        if ($ret and isset($group)) {
+        if ($ret and isset($group) and $group->exists()) {
             $this->setGroup($group);
         }
 
@@ -101,6 +112,7 @@ class User extends DataModel {
 
     public function removeGroup() {
         $groupId = intval($this->get('group'));
+        $this->set('group', $groupId);
 
         if ($groupId > 0) {
 
@@ -110,6 +122,7 @@ class User extends DataModel {
             $group->save();
 
         }
+        $this->save();
     }
 
     public function setPassword($password) {

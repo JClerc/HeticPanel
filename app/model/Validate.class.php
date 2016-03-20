@@ -2,6 +2,14 @@
 
 class Validate extends Model {
 
+    public static function true($variable, $message) {
+        if (!$variable) throw new Exception($message);
+    }
+
+    public static function false($variable, $message) {
+        if ($variable) throw new Exception($message);
+    }
+
     public static function notNull($variable, $message) {
         if (is_null($variable)) throw new Exception($message);
     }

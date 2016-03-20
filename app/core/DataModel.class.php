@@ -208,7 +208,12 @@ abstract class DataModel extends Model {
     }
 
     protected function hasCollection($class, $id = null) {
-        $coll = strtolower($class) . 's';
+        if (is_array($class)) {
+            $coll = $class[1];
+            $class = $class[0];
+        } else {        
+            $coll = strtolower($class) . 's';
+        }
         if ($id === null) {
             return !empty($this->get($coll));
         } else {
@@ -223,16 +228,26 @@ abstract class DataModel extends Model {
     }
 
     protected function addCollection($class, $id) {
-        $coll = strtolower($class) . 's';
+        if (is_array($class)) {
+            $coll = $class[1];
+            $class = $class[0];
+        } else {        
+            $coll = strtolower($class) . 's';
+        }
         if ($id instanceof DataModel) $id = $id->getId();
-        $this->removeCollection($class, $id);
+        $this->removeCollection([$class, $coll], $id);
         $list = $this->get($coll);
         $list[] = $id;
         $this->set($coll, $list);
     }
 
     protected function removeCollection($class, $id) {
-        $coll = strtolower($class) . 's';
+        if (is_array($class)) {
+            $coll = $class[1];
+            $class = $class[0];
+        } else {        
+            $coll = strtolower($class) . 's';
+        }
         if ($id instanceof DataModel) $id = $id->getId();
         $list = $this->get($coll);
         foreach ($list as $key => $value) {

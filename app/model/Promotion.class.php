@@ -19,7 +19,7 @@ class Promotion extends DataModel {
 
     }
     
-    public function create($year, array $groups) {
+    public function create($year, array $groups = []) {
 
         $this->validate($year, $groups);
 

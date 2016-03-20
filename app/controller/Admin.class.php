@@ -308,6 +308,119 @@ class AdminController extends Controller {
 
     }
 
-    public function user() {}
+    public function user() {
+
+        if (POST and isset($_POST['method'])) {
+
+            if ($_POST['method'] === 'add' or $_POST['method'] === 'update') {
+
+                $username   = $_POST['username'];
+                $password   = $_POST['password'];
+                $email      = $_POST['email'];
+                $firstname  = $_POST['firstname'];
+                $lastname   = $_POST['lastname'];
+                $permission = intval($_POST['permission']);
+                $group      = Group::make($_POST['group']);
+
+                try {
+
+                    if ($_POST['method'] === 'add') {
+
+                        $this->set('method-add', true);
+                        $user = User::make();
+                        $user->create(
+                            $username,
+                            $password,
+                            $email,
+                            $firstname,
+                            $lastname,
+                            $permission,
+                            $group
+                        );
+                        $this->flash->set(true, 'Utilisateur ajouté !');
+                        $this->set('method-add', false);
+
+                    } else if ($_POST['method'] === 'update') {
+
+                        $user = User::make($_POST['edit']);
+                        if ($user->exists()) {
+                    
+                            $user->validate(
+                                $username === $user->get('username') ? null : $username,
+                                $password ? $password : 'random',
+                                $email,
+                                $firstname,
+                                $lastname,
+                                $permission,
+                                $group
+                            );
+
+                            $user->set([
+                                'username'   => $username,
+                                'email'      => $email,
+                                'firstname'  => $firstname,
+                                'lastname'   => $lastname,
+                                'permission' => $permission,
+                                'group'      => $group,
+                            ]);
+
+                            if ($password) {
+                                $user->set('password', Factory::create(new Crypt)->createHash($password));
+                            }
+                            
+                            $user->save();
+                            $this->flash->set(true, 'Utilisateur modifié !');
+
+                        }
+                    }
+
+                } catch (Exception $e) {
+                    $this->flash->set(false, $e->getMessage());
+                }
+
+            } else if ($_POST['method'] === 'retrieve') {
+
+                $user = User::make($_POST['edit']);
+                if ($user->exists()) {
+                    $this->set('values', [
+                        'user' => $user,
+                    ]);
+                } else {
+                    $this->flash->set(false, 'Aucun utilisateur sélectionné.');
+                }
+
+            } else if ($_POST['method'] === 'delete') {
+
+                $user = User::make($_POST['delete']);
+                if ($user->exists()) {
+                    $user->delete();
+                    $this->flash->set(true, $user->get('firstname') . ' ' . $user->get('lastname') . ' supprimé !');
+                } else {
+                    $this->flash->set(false, 'Aucun utilisateur sélectionné.');
+                }
+
+            }
+
+        }
+
+        $list = User::sort(User::make()->find());
+        $users = [];
+
+        foreach ($list as $user) {
+            $users[ strtoupper(substr($user->get('lastname'), 0, 1)) ][] = $user;
+        }
+
+        $this->set('users', $users);
+
+        $groupList = Group::sort(Group::make()->find());
+        $groups = [];
+
+        foreach ($groupList as $group) {
+            $groups[ 'P' . $group->getPromotion()->getYear() ][ $group->getIndex() ] = $group;
+        }
+
+        $this->set('groups', $groups);
+
+    }
     
 }

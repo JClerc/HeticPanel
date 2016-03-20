@@ -51,7 +51,9 @@ class Auth extends Model {
         $user = Factory::create(new User);
 
         // Find user with username
-        $user->fromUsername($username);
+        $user->fromProperty('username', $username);
+
+        if (!$user->exists()) $user->fromProperty('email', $username);
 
         // If user exists
         if ($user->exists()) {
