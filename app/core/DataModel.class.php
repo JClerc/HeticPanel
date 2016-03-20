@@ -94,7 +94,9 @@ abstract class DataModel extends Model {
         return isset($this->properties[$key]) ? $this->properties[$key] : null;
     }
 
-    abstract public static function sort($list);
+    public static function sort($list) {
+        return $list;
+    }
 
     public function save() {
         if ($this->exists()) {
