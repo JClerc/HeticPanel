@@ -104,7 +104,7 @@
         <?php endif; ?>
 
         <?php if (!empty($data['students'])): ?>
-            <form method="post">
+            <form method="post" class="students-form tight">
                 <input type="hidden" name="promotion" value="<?= $data['selected']['promotion']->getId() ?>">
                 <input type="hidden" name="group" value="<?= $data['selected']['group']->getId() ?>">
                 <input type="hidden" name="course" value="<?= $data['selected']['course']->getId() ?>">
@@ -123,24 +123,35 @@
                         </div>
                     </div>
                  -->
-
+                
+                <?php 
+                $count = ceil(count($data['students']) / 3);
+                for ($offset = 1; $offset <= 3; $offset++): 
+                ?>
                 <div class="students">
-                    <?php foreach ($data['students'] as $student): ?>
+                    <?php 
+                        $last = ($offset == 3) ? $offset-1 : 1;
+                        for ($i = $count * ($offset-1); $i <= ($count * $offset) - $last; $i++): 
+                            $student = $data['students'][$i];
+                    ?>
                         <div class="student">
                             <label for="student-<?= $student['index'] ?>" class="name">
                                 <?= $student['user']->get('firstname') ?> <?= $student['user']->get('lastname') ?> 
                             </label>
-                            <div class="checkbox">
+                            <div class="hidden">
                                 <input id="student-<?= $student['index'] ?>" type="checkbox" value="<?= $student['user']->getId() ?>" name="absences[]" <?= $student['absent'] ? 'checked' : '' ?>>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endfor; ?>
                 </div>
-
-                <div class="send">
-                    <button type="submit">Valider</button>
-                </div>
+                <?php endfor; ?>
             </form>
         <?php endif; ?>
     </div>
+
+    <?php if (!empty($data['students'])): ?>
+        <div class="students-submit-cont">
+            <button class="students-submit" onclick="$('.students-form').submit()">Envoyer</button>
+        </div>
+    <?php endif; ?>
 </section>

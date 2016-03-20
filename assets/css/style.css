@@ -539,6 +539,11 @@ html, body {
     display: flex;
 }
 
+.students-form.tight {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .students {
     flex: 1;
 }
@@ -561,6 +566,10 @@ html, body {
 .students .student .hidden {
     float: right;
     margin-right: 30px;
+}
+
+.students-form.tight .student .hidden {
+    margin-right: 10px;
 }
 
 .roll-students {
