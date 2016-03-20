@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Mar 19, 2016 at 01:52 AM
+-- Generation Time: Mar 20, 2016 at 04:15 PM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -35,16 +35,19 @@ CREATE TABLE `absences` (
   `state` int(11) NOT NULL,
   `updated` int(11) NOT NULL,
   `denyreason` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `absences`
 --
 
 INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`, `denyreason`) VALUES
-(10, 1, 1457910000, 2, 'Je suis malade', 2, 1457947081, ''),
-(11, 4, 1457910000, 2, 'Dsl', 2, 1457947081, ''),
-(12, 82, 1457910000, 2, '', 0, 1457947081, '');
+(28, 79, 1457910000, 4, '', 0, 1457947081, ''),
+(30, 1, 1457391600, 12, 'Wallah j''étais malade', 4, 1457947081, ''),
+(31, 1, 1456786800, 12, '', 0, 1457947081, ''),
+(58, 88, 1457910000, 2, '', 0, 1457947081, ''),
+(60, 94, 1457910000, 2, 'Je été malade svp', 3, 1457947081, ''),
+(61, 193, 1457564400, 28, '', 0, 1457947081, '');
 
 -- --------------------------------------------------------
 
@@ -63,7 +66,7 @@ CREATE TABLE `courses` (
   `starttime` int(11) NOT NULL,
   `endtime` int(11) NOT NULL,
   `dayofweek` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `courses`
@@ -87,7 +90,9 @@ INSERT INTO `courses` (`id`, `name`, `code`, `teacher`, `group`, `startdate`, `e
 (16, 'Anglais', 'ENGL', 11, 1, 1443045600, 1465423200, 32400, 43200, 4),
 (17, 'Anglais', 'ENGL', 11, 2, 1443045600, 1465423200, 50400, 61200, 4),
 (18, 'Communication des entreprises', 'COM', 12, 1, 1443132000, 1465509600, 32400, 43200, 5),
-(19, 'Communication des entreprises', 'COM', 12, 2, 1443132000, 1465509600, 50400, 61200, 5);
+(19, 'Communication des entreprises', 'COM', 12, 2, 1443132000, 1465509600, 50400, 61200, 5),
+(28, 'Fondamentaux de l’Internet', 'FDI', 192, 3, 1443132000, 1467237600, 32400, 43200, 4),
+(29, 'Fondamentaux de l’Internet', 'FDI', 192, 4, 1443132000, 1467237600, 50400, 61200, 4);
 
 -- --------------------------------------------------------
 
@@ -101,15 +106,17 @@ CREATE TABLE `groups` (
   `promotion` int(11) NOT NULL,
   `students` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `courses` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `groups`
 --
 
 INSERT INTO `groups` (`id`, `index`, `promotion`, `students`, `courses`) VALUES
-(1, 1, 1, '29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76', '1,3,5,8,10,13,14,16,18'),
-(2, 2, 1, '1,4,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130', '2,4,6,9,11,12,15,17,19');
+(1, 1, 1, '29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76', '3,5,8,10,13,14,16,18,1'),
+(2, 2, 1, '1,4,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130', '2,4,6,9,11,12,15,17,19'),
+(3, 1, 2, '193', '28'),
+(4, 2, 2, '', '29');
 
 -- --------------------------------------------------------
 
@@ -121,14 +128,15 @@ CREATE TABLE `promotions` (
   `id` int(11) NOT NULL,
   `year` int(11) NOT NULL,
   `groups` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `promotions`
 --
 
 INSERT INTO `promotions` (`id`, `year`, `groups`) VALUES
-(1, 2019, '1,2');
+(1, 2019, '2,1'),
+(2, 2020, '4,3');
 
 -- --------------------------------------------------------
 
@@ -145,7 +153,7 @@ CREATE TABLE `users` (
   `lastname` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `permission` int(11) NOT NULL,
   `group` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -265,7 +273,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastna
 (127, 'avillani', 'sha256:5fx4vkq8NeC0W4ETIQK9g8opH/lvQsqh:6300ec94111dde73f71f5df508a2c9acf2fee9e70ebb77a28d567875b58e4cbf', 'arnaud.villani@hetic.net', 'Arnaud', 'Villani', 1, 2),
 (128, 'cvion', 'sha256:nNS3uh9cOQw6N022bCSWcrNUphGgDCro:e0e1160faea953e0767ad8a98744d6fb07d2c9753c1861fd9aca5255f2ed6d39', 'clement.vion@hetic.net', 'Clément', 'Vion', 1, 2),
 (129, 'mzaccardi', 'sha256:VHJdSDcm+YC41ehGIZSfD/OT5Aut55Ht:cc5314ded0411ee6c0b898cd2307d11b63af54f73f0ff45f76db97d21582f562', 'michael.zaccardi@hetic.net', 'Michaël', 'Zaccardi', 1, 2),
-(130, 'czunda', 'sha256:2ljEWZ7ub1jM2re95STY2nXvSYdTc86X:ce46c1c7ddc86c6de7ac0c2025e74be11bde865256ae44acdbdb1d59e59390cc', 'claire.zunda@hetic.net', 'Claire', 'Zunda', 1, 2);
+(130, 'czunda', 'sha256:2ljEWZ7ub1jM2re95STY2nXvSYdTc86X:ce46c1c7ddc86c6de7ac0c2025e74be11bde865256ae44acdbdb1d59e59390cc', 'claire.zunda@hetic.net', 'Claire', 'Zunda', 1, 2),
+(192, 'dvillamonteiro', 'sha256:T6ORRT6HW7siP6XxZ7tsojwzw+he0cH5:c5b8ef8c1b9a304cfbe78b12a56b27743670b42eccc456042f47b5e38c37042d', 'daniel.villamonteiro@hetic.net', 'Daniel', 'Villamonteiro', 2, 0),
+(193, 'test', 'sha256:dlOIa1/DOCroEYppc3rIxhZ0zzhpG8P3:31f57c68f15a11716bfc33e607d59e50fa4373351ffc56b6e8f647ee4a806183', 'test@hetic.net', 'Test', 'Test', 1, 3);
 
 --
 -- Indexes for dumped tables
@@ -309,27 +319,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absences`
 --
 ALTER TABLE `absences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=194;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
