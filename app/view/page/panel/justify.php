@@ -20,8 +20,7 @@
                             <?= $absence->getStudent()->get('firstname') ?> <?= $absence->getStudent()->get('lastname') ?>
                         </h3>
                         <p>
-                            <?= $absence->getDate()->getDay() ?> <?= $absence->getDate()->getMonthName() ?> <?= $absence->getDate()->getYear() ?>
-                            – <?= $absence->getCourse()->get('name') ?>                
+                            <?= $absence->getDate()->getDay() ?> <?= $absence->getDate()->getMonthName() ?> <?= $absence->getDate()->getYear() ?> – <?= $absence->getCourse()->get('name') ?>                
                         </p>
                         <div class="hidden reason" style="display: none;">
                             <?= e($absence->get('reason')) ?>
@@ -40,29 +39,26 @@
             </div>
 
             <div class="details" style="display: none;">
-                
-                <h4>Eleve: <span class="name"></span></h4>
+                <h2><span class="name"></span></h2>
 
-                <h4>Raison:</h4>
+                <h4>Raison</h4>
                 <div class="reason"></div>
 
                 <h4>Image</h4>
                 <div class="img"></div>
 
-                <form method="post">
+                <form method="post" class="form-sided">
                     <input type="hidden" value="deny" name="action">
                     <input type="hidden" name="id" value="" class="entry-id">
-                    <button type="submit">Refuser</button>
+                    <button class="absence-submit">Refuser</button>
                 </form>
 
-                <form method="post">
+                <form method="post" class="form-sided">
                     <input type="hidden" value="accept" name="action">
                     <input type="hidden" name="id" value="" class="entry-id">
-                    <button type="submit">Accepter</button>
+                    <button class="absence-submit">Accepter</button>
                 </form>
-
             </div>
-
         </div>
 
     <?php endif; ?>

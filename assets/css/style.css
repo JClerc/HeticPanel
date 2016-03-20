@@ -433,6 +433,24 @@ html, body {
     background: #E68664;
 }
 
+.form-sided {
+    float: left;
+    text-align: center;
+    width: 50%;
+}
+
+.details .reason {
+    margin-top: -10px;
+    width: 100%;
+    padding: 20px;
+    background: #ECF3FA;
+    box-sizing: border-box;
+}
+
+.details h2 {
+    margin-bottom: 40px;
+}
+
 .absence-list .item {
     height: 90px;
 }
@@ -444,6 +462,10 @@ html, body {
 .absence-list .item p {
     margin-top: 5px;
 }
+
+.absence-list .item.missing a {
+    color: white;
+} 
 
 .absence-list .item a {
     color: #8F9193;

@@ -106,6 +106,9 @@ App.calendar.courseList = function (courses, absences, date) {
 App.panel = {};
 
 App.panel.justify = function (entry) {
+    $('.absence-list .item.missing').removeClass('missing');
+    $(entry).parent('.item').addClass('missing');
+
     var $entry = $(entry),
         id = ~~$entry.data('id'),
         img = $entry.data('img'),
