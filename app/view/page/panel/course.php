@@ -146,6 +146,8 @@
                 </div>
                 <?php endfor; ?>
             </form>
+        <?php else: ?>
+            Aucun étudiant
         <?php endif; ?>
     </div>
 
@@ -153,5 +155,6 @@
         <div class="students-submit-cont">
             <button class="students-submit" onclick="$('.students-form').submit()">Envoyer</button>
         </div>
+        <br>
     <?php endif; ?>
 </section>
