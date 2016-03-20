@@ -22,6 +22,7 @@
                         <?php 
                         $last = ($offset == 3) ? $offset-1 : 1;
                         for ($i = $count * ($offset-1); $i <= ($count * $offset) - $last; $i++): 
+                            if (!isset($data['students'][$i])) continue;
                             $student = $data['students'][$i];
                         ?>
                             <div class="student <?= $student['class'] ?>" data-index="<?= $student['index'] ?>">

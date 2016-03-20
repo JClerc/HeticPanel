@@ -59,9 +59,7 @@ class AbsenceController extends Controller {
 
                         if (empty($_FILES['proof']) or $_FILES['proof']['size'] === 0) {
 
-                            if (is_file($saveTo . '.jpg')) {
-                                unlink($saveTo . '.jpg');
-                            }
+                            $absence->deleteProof();
 
                         } else {
 

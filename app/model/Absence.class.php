@@ -136,6 +136,7 @@ class Absence extends DataModel {
         $this->set('updated', TIME);
         $this->set('denyreason', '');
         $this->save();
+        $this->deleteProof();
     }
 
     public function denyReason($reason = '') {
@@ -143,6 +144,7 @@ class Absence extends DataModel {
         $this->set('updated', TIME);
         $this->set('denyreason', $reason);
         $this->save();
+        $this->deleteProof();
     }
 
     public static function sort($list) {
@@ -150,6 +152,13 @@ class Absence extends DataModel {
             return $b->get('updated') - $a->get('updated');
         });
         return $list;
+    }
+
+    public function deleteProof() {
+        $saveTo = Absence::PHP_PROOF_DIR . $absence->getId();
+        if (is_file($saveTo . '.jpg')) {
+            unlink($saveTo . '.jpg');
+        }
     }
 
 }
