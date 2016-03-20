@@ -155,7 +155,7 @@ class Absence extends DataModel {
     }
 
     public function deleteProof() {
-        $saveTo = Absence::PHP_PROOF_DIR . $absence->getId();
+        $saveTo = Absence::PHP_PROOF_DIR . $this->getId();
         if (is_file($saveTo . '.jpg')) {
             unlink($saveTo . '.jpg');
         }

@@ -8,8 +8,8 @@
 
     <!-- Liste des absences sur la gauche -->
     <?php if (empty($data['absences'])): ?>
-        <div class="no-absence">
-            Aucun justificatif en attente.
+        <div class="absence-view dashbox">
+            <h3>Aucun justificatif en attente.</h3>
         </div>
     <?php else: ?>
         <div class="absence-list course-list dashbox nopadding">

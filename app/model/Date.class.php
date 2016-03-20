@@ -87,6 +87,10 @@ class Date extends Model {
         return intval(date('N', $this->time));
     }
 
+    public function readable() {
+        return $this->getDay() . ' ' . $this->getMonthName() . ' ' . $this->getYear();
+    }
+
     public function getDay() {
         return date('d', $this->time);
     }

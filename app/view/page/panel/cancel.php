@@ -102,7 +102,7 @@
                 </span>
             </form>
 
-            <h3 class="month-name"><?= $data['selected']['date']->toString() ?></h3>
+            <h3 class="month-name"><?= $data['selected']['date']->readable() ?></h3>
             <div class="clear"></div><br>
         <?php endif; ?>
 
@@ -125,6 +125,8 @@
                     </div>
                 <?php endif; ?>
             </form>
+        <?php else: ?>
+            <h3>Choisissez un cours avec les menu à droite.</h3>
         <?php endif; ?>
     </div>
 </section>
