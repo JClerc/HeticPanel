@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Mar 20, 2016 at 04:15 PM
+-- Generation Time: Mar 20, 2016 at 09:57 PM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.0
 
@@ -35,19 +35,18 @@ CREATE TABLE `absences` (
   `state` int(11) NOT NULL,
   `updated` int(11) NOT NULL,
   `denyreason` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `absences`
 --
 
 INSERT INTO `absences` (`id`, `student`, `date`, `course`, `reason`, `state`, `updated`, `denyreason`) VALUES
-(28, 79, 1457910000, 4, '', 0, 1457947081, ''),
-(30, 1, 1457391600, 12, 'Wallah j''étais malade', 4, 1457947081, ''),
-(31, 1, 1456786800, 12, '', 0, 1457947081, ''),
-(58, 88, 1457910000, 2, '', 0, 1457947081, ''),
-(60, 94, 1457910000, 2, 'Je été malade svp', 3, 1457947081, ''),
-(61, 193, 1457564400, 28, '', 0, 1457947081, '');
+(62, 1, 1457564400, 17, 'Bonjour,\r\n\r\nEn fait j''étais en retard.', 2, 1458549720, ''),
+(63, 1, 1456354800, 17, '', 0, 1457948520, ''),
+(64, 1, 1454367600, 12, '', 0, 1457948520, ''),
+(65, 4, 1457391600, 11, 'Bonjour,\r\n\r\nLa ligne 1 du métro était en panne.\r\n\r\nMerci.', 2, 1458549720, ''),
+(66, 99, 1455663600, 15, 'Bonjour,\r\n\r\nJ''avais la grippe.\r\n\r\nBien cordialement,', 2, 1458549720, '');
 
 -- --------------------------------------------------------
 
@@ -75,8 +74,8 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `name`, `code`, `teacher`, `group`, `startdate`, `enddate`, `starttime`, `endtime`, `dayofweek`) VALUES
 (1, 'Ingénierie Informatique', 'ALGO', 2, 1, 1443391200, 1465164000, 50400, 61200, 1),
 (2, 'Ingénierie Informatique', 'ALGO', 2, 2, 1443391200, 1465164000, 32400, 43200, 1),
-(3, 'Développement Web', 'DEVWEB', 5, 1, 1443391200, 1465164000, 50400, 61200, 1),
-(4, 'Développement Web', 'DEVWEB', 5, 2, 1443391200, 1465164000, 32400, 43200, 1),
+(3, 'Développement Web', 'DEVWEB', 5, 1, 1443391200, 1465164000, 32400, 43200, 1),
+(4, 'Développement Web', 'DEVWEB', 5, 2, 1443391200, 1465164000, 50400, 61200, 1),
 (5, 'Design Initiatique', 'DESIGN', 6, 1, 1443564000, 1465336800, 32400, 43200, 3),
 (6, 'Design Initiatique', 'DESIGN', 6, 2, 1443564000, 1465336800, 50400, 61200, 3),
 (8, 'Entre érosion et permanence', 'ART', 13, 1, 1443477600, 1448319600, 32400, 43200, 2),
@@ -113,7 +112,7 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `index`, `promotion`, `students`, `courses`) VALUES
-(1, 1, 1, '29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76', '3,5,8,10,13,14,16,18,1'),
+(1, 1, 1, '29,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76', '3,5,8,10,13,14,16,18,1'),
 (2, 2, 1, '1,4,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130', '2,4,6,9,11,12,15,17,19'),
 (3, 1, 2, '193', '28'),
 (4, 2, 2, '', '29');
@@ -319,7 +318,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absences`
 --
 ALTER TABLE `absences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `courses`
 --
