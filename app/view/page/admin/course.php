@@ -44,7 +44,7 @@
         </div><br>
 
 
-        <div class="dashbox menu menu-delete">
+        <div class="dashbox nopadding menu menu-delete">
             <form method="post">
             
                 <div class="item parent menu-title">
@@ -64,7 +64,7 @@
                     </select>
                 </div>
 
-                <div class="item" style="margin-top: -20px; height: 65px">
+                <div class="item" style="margin-top: -20px; height: 80px">
                     <center>
                         <button type="submit" class="absence-submit btn-submit" style="margin-top:0" name="method" value="delete">Supprimer</button>
                     </center>
