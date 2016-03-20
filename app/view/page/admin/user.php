@@ -9,7 +9,7 @@
     <div class="course-list">
         <!-- Ajouter -->
         <div class="dashbox nopadding menu menu-add">
-            <a href="#" class="item missing menu-title" onclick="$('#add').toggle();">
+            <a href="#" class="item missing menu-title" onclick="$('#add').toggle();$('.form-edit').hide()">
                 Ajouter un utilisateur
             </a>
         </div><br>
@@ -77,6 +77,9 @@
     </div>
 
     <div class="calendar dashbox">
+        <div class="no-select auto-toggle">
+            <h3>Sélectionnez une option sur la droite.</h3>
+        </div>
         <form method="post" id="add" class="menu-hidden" style="<?= (isset($data['method-add']) and $data['method-add']) ? '' : 'display: none;' ?>">
             <h3>Ajouter un utilisateur</h3>
 
@@ -131,7 +134,7 @@
         </form>
 
         <?php if (isset($data['values'])): ?>
-        <form method="post" class="menu-hidden">
+        <form method="post" class="menu-hidden form-edit">
             <h3>Modifier un utilisateur</h3>
 
             <select name="edit" style="display: none;">

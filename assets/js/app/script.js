@@ -127,10 +127,36 @@ App.panel.justify = function (entry) {
     $view.find('.img').empty();
 
     if (img.length > 10) {
-        $view.find('.img').append($('<img>').attr('src', img));
+        $view.find('.img').append(
+            $('<p>').text("Cliquez sur l'image pour la voir en taille réelle")
+        ).append(
+            $('<a>').attr('href', img).attr('target', '_blank').append(
+                $('<img>').attr('src', img)
+            )
+        );
+    } else {
+        $view.find('.img').text('Aucune image fournie.');
     }
 
     $view.find('.entry-id').val(id);
 
 };
 
+var toggle = $('.auto-toggle');
+var check = function () {
+    toggle.each(function (i, e) {
+        if ($(e).hide().parent().height() === 0) {
+            $(e).show();
+        }
+    });
+};
+
+var apply = function () {
+    check();
+    setTimeout(check, 1);
+    setTimeout(check, 5);
+};
+
+$(document).on('click', apply);
+
+apply();

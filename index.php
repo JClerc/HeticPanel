@@ -24,8 +24,7 @@ define('VIEW', APP . 'view/');
 define('FILES', 'files/');
 
 // define('TIME', time());
-define('TIME', strtotime('14-03-2016 10:42'));
-// define('TIME', strtotime('17-03-2016 10:42'));
+define('TIME', strtotime('21-03-2016 9:42'));
 
 
 /*

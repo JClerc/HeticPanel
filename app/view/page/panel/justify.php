@@ -35,7 +35,7 @@
         <!-- Vue d'une absence sur la droite -->
         <div class="absence-view calendar dashbox">
             <div class="no-select">
-                Sélectionnez une absence.
+                <h3>Sélectionnez une absence.</h3>
             </div>
 
             <div class="details" style="display: none;">

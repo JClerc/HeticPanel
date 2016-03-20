@@ -14,6 +14,7 @@ html, body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
+    padding-bottom: 30px;
 }
 
 .container {
@@ -533,6 +534,15 @@ html, body {
 
 .absence-submit:hover {
     background: #C36B4C;
+}
+
+.absence-view .details .img img {
+    max-width: 100%;
+}
+
+.absence-view .details .img {
+    max-height: 200px;
+    overflow: hidden;
 }
 
 .students-form {
