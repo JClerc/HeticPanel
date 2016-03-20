@@ -684,3 +684,21 @@ html, body {
     outline: none;
     border-radius: 4px;
 }
+
+.menu-hidden input {
+    width: 80%;
+    height: 30px;
+    border: 0;
+    background: #EAEDEF;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form-container {
+    display: flex;
+    width: 100%;
+}
+
+.form-container .form-item {
+    flex: 1;
+}
