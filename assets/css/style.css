@@ -700,10 +700,10 @@ html, body {
 
 .menu-hidden input {
     width: 80%;
-    height: 30px;
+    /*height: 30px;*/
     border: 0;
     background: #EAEDEF;
-    padding: 10px;
+    padding: 8px 10px;
     box-sizing: border-box;
 }
 
