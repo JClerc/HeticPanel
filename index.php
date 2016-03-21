@@ -23,7 +23,18 @@ define('MODEL', APP . 'model/');
 define('VIEW', APP . 'view/');
 define('FILES', 'files/');
 
-define('TIME', time());
+
+/*
+ * --------------------------------
+ *            Set time
+ * --------------------------------
+ *
+ */
+$dateTimeZone = new DateTimeZone('Europe/Paris');
+$dateTime = new DateTime("now", $dateTimeZone);
+$timeOffset = $dateTimeZone->getOffset($dateTime);
+define('TIME', time() + $timeOffset);
+// Manually change time
 // define('TIME', strtotime('21-03-2016 10:42'));
 
 
