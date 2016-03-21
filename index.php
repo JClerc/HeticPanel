@@ -23,8 +23,8 @@ define('MODEL', APP . 'model/');
 define('VIEW', APP . 'view/');
 define('FILES', 'files/');
 
-// define('TIME', time());
-define('TIME', strtotime('21-03-2016 10:42'));
+define('TIME', time());
+// define('TIME', strtotime('21-03-2016 10:42'));
 
 
 /*
